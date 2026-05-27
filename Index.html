@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en"><script type="text/javascript" id="__WebInspectorInjectedScript__">function clear(){return"JSClear"}function _sourceweb_startup(){function simpleObjToString(e,t=0,n=!1){if("string"==typeof e)return JSON.stringify(e);if("number"==typeof e)return e.toString();if("boolean"==typeof e)return e?"true":"false";if("function"==typeof e)return""+e;if(e instanceof HTMLElement&&0==t)return null!==e.parentNode?n?"REVEALEDELEMENT:"+getDomPath(e):"JSHTMLPath:"+getDomPath(e):"JSHTML:"+e.outerHTML;if(null==e)return"undefined";if(e instanceof Array){let n="[";var r=0;return e.forEach(function(e){r>0&&(n+=", "),n+=objToString(e,t+1),r+=1}),n+"]"}}function objToString(e,t=0,n=!1,r=!1){function o(e){try{return encodeURIComponent(e)}catch(t){if("URIError"==t.name)return escape(e);throw t}}var i=simpleObjToString(e,t,r);if(void 0!==i)return i;if(t>0||0==Object.entries(e).length)try{return void 0===(c=simpleObjToString(e,t))&&(c=e.toString()),c}catch(e){return JSON.stringify(e.toString())}if(n)return!0;let s="{";var a=0,u=[];for(const[t,n]of Object.entries(e))u.includes(t)||u.push(t);for(const t of getProperties(e))u.includes(t)||u.push(t);for(const n of u){const r=e[n];var c;a>0&&(s+=", "),c=1!=(c=objToString(r,t+1,!0))?'"'+o(c)+'"':objToString(r,t+1),s+=`"${o(n)}": ${c}`,a+=1}var l="";return 0==t&&(l=e instanceof Node?"JSOBJ:"+e.nodeName:"JSOBJ:"+e.toString()),l+"\n"+s+"}"}const isGetter=(e,t)=>(Object.getOwnPropertyDescriptor(e,t)||{}).get,deepProperties=e=>e&&e!==Object.prototype&&Object.getOwnPropertyNames(e).filter(t=>isGetter(e,t)).concat(deepProperties(Object.getPrototypeOf(e))||[]),distinctDeepProperties=e=>Array.from(new Set(deepProperties(e))),getProperties=e=>distinctDeepProperties(e).filter(e=>"constructor"!==e&&!~e.indexOf("__"));function argumentsToString(e){if(1==e.length&&"string"==typeof e[0])return e[0];let t="";var n=0;for(let r of e)n>0&&(t+="\n"),t+=objToString(r,1),n+=1;return t}var oldLog=console.log,oldError=console.error,oldWarn=console.warn;function inIframe(){try{return window.self!==window.top}catch(e){return!0}}function evalCode(e){setHistory();try{let n=null;n=eval.apply(null,[e.data.prompt]);var t=void 0;null!=n&&(t=addToHistory(n)),jsResult=objToString(n,0,!1,e.data.sendRevealedElement),e.data.sendResult&&window.postMessage({console:jsResult,resultVariable:t},"*")}catch(e){StackTrace.fromError(e).then(function(t){var n={message:e.name+": "+e.message,stack:t};jsResult="JSStackTrace:"+JSON.stringify(n),window.postMessage({console:jsResult},"*")})}unsetHistory()}function codeCompletion(code){const currentExpression=splitCode(code,[":",";","\n"," ","\t","(","{","["]);var split=currentExpression.split("."),last=split.pop(split.length-1).replace(" ","");0==split.length&&(split=["window"]),setHistory();const obj=eval(split.join("."));unsetHistory();var objectEntries=[];for(const[e,t]of Object.entries(obj))objectEntries.push(e);for(const[e,t]of Object.entries(obj))objectEntries.push(e);for(const e of getAllFuncs(obj))objectEntries.push(e);for(const e of Object.getOwnPropertyNames(obj))objectEntries.push(e);const keywords="await break case catch class const continue debugger default delete do else enum export extends false finally for function if implements import in instanceof interface let new null of package private protected public return super switch static this throw try true typeof var void while with yield".split(" ");var entries=[],length={};for(const e of getProperties(obj).concat(objectEntries).concat(keywords))!e.startsWith(last)||entries.includes(e)||"0"==e||e.startsWith("$")||(length[e]=last.length,entries.push(e));var codeCompletions=[];for(const e of entries.sort()){var newCode=code.substring(0,code.length-length[e]);newCode+=e,codeCompletions.push({name:e,code:newCode})}return codeCompletions}function getDomPath(e){if(e){for(var t=[],n=!1;null!=e.parentNode;){for(var r=0,o=0,i=0;i<e.parentNode.childNodes.length;i++){var s=e.parentNode.childNodes[i];s.nodeName==e.nodeName&&(s===e&&(o=r),r++)}var a=e.nodeName.toLowerCase();n&&(a+="::shadow",n=!1),r>1?t.unshift(a+":nth-of-type("+(o+1)+")"):t.unshift(a),11===(e=e.parentNode).nodeType&&(n=!0,e=e.host)}return t.splice(0,1),t.join(" > ")}}function splitCode(e,t){var n=e;for(const e of t)("("!=e&&"{"!=e&&"["!=e||n.replace(" ","")[n.replace(" ","").length-1]==e)&&(n=n.split(e)[n.split(e).length-1]);return n}function getAllFuncs(e){const t=[];let n=e;do{t.push(...Object.getOwnPropertyNames(n))}while(n=Object.getPrototypeOf(n));return t.sort().filter((t,n,r)=>{if(t!=r[n+1]&&"function"==typeof e[t])return!0})}function unsetHistory(){for(const[e,t]of Object.entries(sourceweb.consoleHistory))delete window[e]}function setHistory(){for(const[e,t]of Object.entries(sourceweb.consoleHistory))window[e]=t}function clearHistory(){sourceweb.consoleHistory={}}function addToHistory(e){if("JSClear"==e)return;for(const[t,n]of Object.entries(sourceweb.consoleHistory))if(e===n)return t;for(var t=1;void 0!==sourceweb.consoleHistory["$"+t.toString()];)t+=1;const n="$"+t.toString();return sourceweb.consoleHistory[n]=e,n}function mainWorldMessageHandler(e){inIframe()||void 0===e.data.prompt&&void 0===e.data.code||0!=e.data.frameId||(void 0!==e.data.prompt?evalCode(e):window.postMessage({codeCompletion:JSON.stringify(codeCompletion(e.data.code)),doNotSend:e.data.doNotSend},"*"))}function setErrorHandlers(){function e(e){try{StackTrace.fromError(e).then(function(t){var n={message:e.name+": "+e.message,stack:t};window.postMessage({console:"JSStackTrace:"+JSON.stringify(n)},"*")})}catch(t){console.error(e)}}window.addEventListener("error",function(t){return e(t.error),!1}),window.addEventListener("unhandledrejection",function(t){e(t.reason)})}console.log=function(e){if(oldLog.apply(console,arguments),0!=arguments.length){var t=0,n="";for(let e of arguments){if(0==t&&"string"==typeof e)n+="JSLog:",n+=e;else{var r=objToString(e);t>0?n+="\n":r.startsWith("JSHTML:")||r.startsWith("JSHTMLPath:")||r.startsWith("JSOBJ:")||(n+="JSValue:"),n+=r}t+=1}window.postMessage({console:n},"*")}},console.warn=function(e){oldWarn.apply(console,arguments),0!=arguments.length&&window.postMessage({console:"JSWarning:"+argumentsToString(arguments)},"*")},console.error=function(e){oldError.apply(console,arguments),0!=arguments.length&&window.postMessage({console:"JSError:"+argumentsToString(arguments)},"*")},sourceweb={consoleHistory:{}},window.addEventListener("message",mainWorldMessageHandler),setErrorHandlers(),function(e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):("undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this).StackTrace=e()}(function(){return function e(t,n,r){function o(s,a){if(!n[s]){if(!t[s]){var u="function"==typeof require&&require;if(!a&&u)return u(s,!0);if(i)return i(s,!0);var c=new Error("Cannot find module '"+s+"'");throw c.code="MODULE_NOT_FOUND",c}var l=n[s]={exports:{}};t[s][0].call(l.exports,function(e){return o(t[s][1][e]||e)},l,l.exports,e,t,n,r)}return n[s].exports}for(var i="function"==typeof require&&require,s=0;s<r.length;s++)o(r[s]);return o}({1:[function(e,t,n){!function(r,o){"use strict";"object"==typeof n?t.exports=o(e("stackframe")):r.ErrorStackParser=o(r.StackFrame)}(this,function(e){"use strict";var t=/(^|@)\S+:\d+/,n=/^\s*at .*(\S+:\d+|\(native\))/m,r=/^(eval@)?(\[native code])?$/;return{parse:function(e){if(void 0!==e.stacktrace||void 0!==e["opera#sourceloc"])return this.parseOpera(e);if(e.stack&&e.stack.match(n))return this.parseV8OrIE(e);if(e.stack)return this.parseFFOrSafari(e);throw new Error("Cannot parse given Error object")},extractLocation:function(e){if(-1===e.indexOf(":"))return[e];var t=/(.+?)(?::(\d+))?(?::(\d+))?$/.exec(e.replace(/[()]/g,""));return[t[1],t[2]||void 0,t[3]||void 0]},parseV8OrIE:function(t){return t.stack.split("\n").filter(function(e){return!!e.match(n)},this).map(function(t){t.indexOf("(eval ")>-1&&(t=t.replace(/eval code/g,"eval").replace(/(\(eval at [^()]*)|(\),.*$)/g,""));var n=t.replace(/^\s+/,"").replace(/\(eval code/g,"("),r=n.match(/ (\((.+):(\d+):(\d+)\)$)/),o=(n=r?n.replace(r[0],""):n).split(/\s+/).slice(1),i=this.extractLocation(r?r[1]:o.pop()),s=o.join(" ")||void 0,a=["eval","<anonymous>"].indexOf(i[0])>-1?void 0:i[0];return new e({functionName:s,fileName:a,lineNumber:i[1],columnNumber:i[2],source:t})},this)},parseFFOrSafari:function(t){return t.stack.split("\n").filter(function(e){return!e.match(r)},this).map(function(t){if(t.indexOf(" > eval")>-1&&(t=t.replace(/ line (\d+)(?: > eval line \d+)* > eval:\d+:\d+/g,":$1")),-1===t.indexOf("@")&&-1===t.indexOf(":"))return new e({functionName:t});var n=/((.*".+"[^@]*)?[^@]*)(?:@)/,r=t.match(n),o=r&&r[1]?r[1]:void 0,i=this.extractLocation(t.replace(n,""));return new e({functionName:o,fileName:i[0],lineNumber:i[1],columnNumber:i[2],source:t})},this)},parseOpera:function(e){return!e.stacktrace||e.message.indexOf("\n")>-1&&e.message.split("\n").length>e.stacktrace.split("\n").length?this.parseOpera9(e):e.stack?this.parseOpera11(e):this.parseOpera10(e)},parseOpera9:function(t){for(var n=/Line (\d+).*script (?:in )?(\S+)/i,r=t.message.split("\n"),o=[],i=2,s=r.length;i<s;i+=2){var a=n.exec(r[i]);a&&o.push(new e({fileName:a[2],lineNumber:a[1],source:r[i]}))}return o},parseOpera10:function(t){for(var n=/Line (\d+).*script (?:in )?(\S+)(?:: In function (\S+))?$/i,r=t.stacktrace.split("\n"),o=[],i=0,s=r.length;i<s;i+=2){var a=n.exec(r[i]);a&&o.push(new e({functionName:a[3]||void 0,fileName:a[2],lineNumber:a[1],source:r[i]}))}return o},parseOpera11:function(n){return n.stack.split("\n").filter(function(e){return!!e.match(t)&&!e.match(/^Error created at/)},this).map(function(t){var n,r=t.split("@"),o=this.extractLocation(r.pop()),i=r.shift()||"",s=i.replace(/<anonymous function(: (\w+))?>/,"$2").replace(/\([^)]*\)/g,"")||void 0;i.match(/\(([^)]*)\)/)&&(n=i.replace(/^[^(]+\(([^)]*)\)$/,"$1"));var a=void 0===n||"[arguments not available]"===n?void 0:n.split(",");return new e({functionName:s,args:a,fileName:o[0],lineNumber:o[1],columnNumber:o[2],source:t})},this)}}})},{stackframe:2}],2:[function(e,t,n){!function(e,r){"use strict";"object"==typeof n?t.exports=r():e.StackFrame=r()}(this,function(){"use strict";function e(e){return!isNaN(parseFloat(e))&&isFinite(e)}function t(e){return e.charAt(0).toUpperCase()+e.substring(1)}function n(e){return function(){return this[e]}}function r(e){if(e)for(var n=0;n<a.length;n++)void 0!==e[a[n]]&&this["set"+t(a[n])](e[a[n]])}var o=["isConstructor","isEval","isNative","isToplevel"],i=["columnNumber","lineNumber"],s=["fileName","functionName","source"],a=o.concat(i,s,["args"]);r.prototype={getArgs:function(){return this.args},setArgs:function(e){if("[object Array]"!==Object.prototype.toString.call(e))throw new TypeError("Args must be an Array");this.args=e},getEvalOrigin:function(){return this.evalOrigin},setEvalOrigin:function(e){if(e instanceof r)this.evalOrigin=e;else{if(!(e instanceof Object))throw new TypeError("Eval Origin must be an Object or StackFrame");this.evalOrigin=new r(e)}},toString:function(){var e=this.getFileName()||"",t=this.getLineNumber()||"",n=this.getColumnNumber()||"",r=this.getFunctionName()||"";return this.getIsEval()?e?"[eval] ("+e+":"+t+":"+n+")":"[eval]:"+t+":"+n:r?r+" ("+e+":"+t+":"+n+")":e+":"+t+":"+n}},r.fromString=function(e){var t=e.indexOf("("),n=e.lastIndexOf(")"),o=e.substring(0,t),i=e.substring(t+1,n).split(","),s=e.substring(n+1);if(0===s.indexOf("@"))var a=/@(.+?)(?::(\d+))?(?::(\d+))?$/.exec(s,""),u=a[1],c=a[2],l=a[3];return new r({functionName:o,args:i||void 0,fileName:u,lineNumber:c||void 0,columnNumber:l||void 0})};for(var u=0;u<o.length;u++)r.prototype["get"+t(o[u])]=n(o[u]),r.prototype["set"+t(o[u])]=function(e){return function(t){this[e]=Boolean(t)}}(o[u]);for(var c=0;c<i.length;c++)r.prototype["get"+t(i[c])]=n(i[c]),r.prototype["set"+t(i[c])]=function(t){return function(n){if(!e(n))throw new TypeError(t+" must be a Number");this[t]=Number(n)}}(i[c]);for(var l=0;l<s.length;l++)r.prototype["get"+t(s[l])]=n(s[l]),r.prototype["set"+t(s[l])]=function(e){return function(t){this[e]=String(t)}}(s[l]);return r})},{}],3:[function(e,t,n){function r(){this._array=[],this._set=Object.create(null)}var o=e("./util"),i=Object.prototype.hasOwnProperty;r.fromArray=function(e,t){for(var n=new r,o=0,i=e.length;o<i;o++)n.add(e[o],t);return n},r.prototype.size=function(){return Object.getOwnPropertyNames(this._set).length},r.prototype.add=function(e,t){var n=o.toSetString(e),r=i.call(this._set,n),s=this._array.length;r&&!t||this._array.push(e),r||(this._set[n]=s)},r.prototype.has=function(e){var t=o.toSetString(e);return i.call(this._set,t)},r.prototype.indexOf=function(e){var t=o.toSetString(e);if(i.call(this._set,t))return this._set[t];throw new Error('"'+e+'" is not in the set.')},r.prototype.at=function(e){if(e>=0&&e<this._array.length)return this._array[e];throw new Error("No element indexed by "+e)},r.prototype.toArray=function(){return this._array.slice()},n.ArraySet=r},{"./util":9}],4:[function(e,t,n){var r=e("./base64");n.encode=function(e){var t,n="",o=function(e){return e<0?1+(-e<<1):0+(e<<1)}(e);do{t=31&o,(o>>>=5)>0&&(t|=32),n+=r.encode(t)}while(o>0);return n},n.decode=function(e,t,n){var o,i,s=e.length,a=0,u=0;do{if(t>=s)throw new Error("Expected more digits in base 64 VLQ value.");if(-1===(i=r.decode(e.charCodeAt(t++))))throw new Error("Invalid base64 digit: "+e.charAt(t-1));o=!!(32&i),a+=(i&=31)<<u,u+=5}while(o);n.value=function(e){var t=a>>1;return 1==(1&a)?-t:t}(),n.rest=t}},{"./base64":5}],5:[function(e,t,n){var r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("");n.encode=function(e){if(0<=e&&e<r.length)return r[e];throw new TypeError("Must be between 0 and 63: "+e)},n.decode=function(e){return 65<=e&&e<=90?e-65:97<=e&&e<=122?e-97+26:48<=e&&e<=57?e-48+52:43==e?62:47==e?63:-1}},{}],6:[function(e,t,n){n.GREATEST_LOWER_BOUND=1,n.LEAST_UPPER_BOUND=2,n.search=function(e,t,r,o){if(0===t.length)return-1;var i=function e(t,r,o,i,s,a){var u=Math.floor((r-t)/2)+t,c=s(o,i[u],!0);return 0===c?u:c>0?r-u>1?e(u,r,o,i,s,a):a==n.LEAST_UPPER_BOUND?r<i.length?r:-1:u:u-t>1?e(t,u,o,i,s,a):a==n.LEAST_UPPER_BOUND?u:t<0?-1:t}(-1,t.length,e,t,r,o||n.GREATEST_LOWER_BOUND);if(i<0)return-1;for(;i-1>=0&&0===r(t[i],t[i-1],!0);)--i;return i}},{}],7:[function(e,t,n){function r(e,t,n){var r=e[t];e[t]=e[n],e[n]=r}n.quickSort=function(e,t){!function e(t,n,o,i){if(o<i){var s=o-1;r(t,function(e,t){return Math.round(e+Math.random()*(t-e))}(o,i),i);for(var a=t[i],u=o;u<i;u++)n(t[u],a)<=0&&r(t,s+=1,u);r(t,s+1,u);var c=s+1;e(t,n,o,c-1),e(t,n,c+1,i)}}(e,t,0,e.length-1)}},{}],8:[function(e,t,n){function r(e){var t=e;return"string"==typeof e&&(t=JSON.parse(e.replace(/^\)\]\}'/,""))),null!=t.sections?new s(t):new o(t)}function o(e){var t=e;"string"==typeof e&&(t=JSON.parse(e.replace(/^\)\]\}'/,"")));var n=a.getArg(t,"version"),r=a.getArg(t,"sources"),o=a.getArg(t,"names",[]),i=a.getArg(t,"sourceRoot",null),s=a.getArg(t,"sourcesContent",null),u=a.getArg(t,"mappings"),l=a.getArg(t,"file",null);if(n!=this._version)throw new Error("Unsupported version: "+n);r=r.map(String).map(a.normalize).map(function(e){return i&&a.isAbsolute(i)&&a.isAbsolute(e)?a.relative(i,e):e}),this._names=c.fromArray(o.map(String),!0),this._sources=c.fromArray(r,!0),this.sourceRoot=i,this.sourcesContent=s,this._mappings=u,this.file=l}function i(){this.generatedLine=0,this.generatedColumn=0,this.source=null,this.originalLine=null,this.originalColumn=null,this.name=null}function s(e){var t=e;"string"==typeof e&&(t=JSON.parse(e.replace(/^\)\]\}'/,"")));var n=a.getArg(t,"version"),o=a.getArg(t,"sections");if(n!=this._version)throw new Error("Unsupported version: "+n);this._sources=new c,this._names=new c;var i={line:-1,column:0};this._sections=o.map(function(e){if(e.url)throw new Error("Support for url field in sections not implemented.");var t=a.getArg(e,"offset"),n=a.getArg(t,"line"),o=a.getArg(t,"column");if(n<i.line||n===i.line&&o<i.column)throw new Error("Section offsets must be ordered and non-overlapping.");return i=t,{generatedOffset:{generatedLine:n+1,generatedColumn:o+1},consumer:new r(a.getArg(e,"map"))}})}var a=e("./util"),u=e("./binary-search"),c=e("./array-set").ArraySet,l=e("./base64-vlq"),f=e("./quick-sort").quickSort;r.fromSourceMap=function(e){return o.fromSourceMap(e)},r.prototype._version=3,r.prototype.__generatedMappings=null,Object.defineProperty(r.prototype,"_generatedMappings",{get:function(){return this.__generatedMappings||this._parseMappings(this._mappings,this.sourceRoot),this.__generatedMappings}}),r.prototype.__originalMappings=null,Object.defineProperty(r.prototype,"_originalMappings",{get:function(){return this.__originalMappings||this._parseMappings(this._mappings,this.sourceRoot),this.__originalMappings}}),r.prototype._charIsMappingSeparator=function(e,t){var n=e.charAt(t);return";"===n||","===n},r.prototype._parseMappings=function(e,t){throw new Error("Subclasses must implement _parseMappings")},r.GENERATED_ORDER=1,r.ORIGINAL_ORDER=2,r.GREATEST_LOWER_BOUND=1,r.LEAST_UPPER_BOUND=2,r.prototype.eachMapping=function(e,t,n){var o,i=t||null;switch(n||r.GENERATED_ORDER){case r.GENERATED_ORDER:o=this._generatedMappings;break;case r.ORIGINAL_ORDER:o=this._originalMappings;break;default:throw new Error("Unknown order of iteration.")}var s=this.sourceRoot;o.map(function(e){var t=null===e.source?null:this._sources.at(e.source);return null!=t&&null!=s&&(t=a.join(s,t)),{source:t,generatedLine:e.generatedLine,generatedColumn:e.generatedColumn,originalLine:e.originalLine,originalColumn:e.originalColumn,name:null===e.name?null:this._names.at(e.name)}},this).forEach(e,i)},r.prototype.allGeneratedPositionsFor=function(e){var t=a.getArg(e,"line"),n={source:a.getArg(e,"source"),originalLine:t,originalColumn:a.getArg(e,"column",0)};if(null!=this.sourceRoot&&(n.source=a.relative(this.sourceRoot,n.source)),!this._sources.has(n.source))return[];n.source=this._sources.indexOf(n.source);var r=[],o=this._findMapping(n,this._originalMappings,"originalLine","originalColumn",a.compareByOriginalPositions,u.LEAST_UPPER_BOUND);if(o>=0){var i=this._originalMappings[o];if(void 0===e.column)for(var s=i.originalLine;i&&i.originalLine===s;)r.push({line:a.getArg(i,"generatedLine",null),column:a.getArg(i,"generatedColumn",null),lastColumn:a.getArg(i,"lastGeneratedColumn",null)}),i=this._originalMappings[++o];else for(var c=i.originalColumn;i&&i.originalLine===t&&i.originalColumn==c;)r.push({line:a.getArg(i,"generatedLine",null),column:a.getArg(i,"generatedColumn",null),lastColumn:a.getArg(i,"lastGeneratedColumn",null)}),i=this._originalMappings[++o]}return r},n.SourceMapConsumer=r,o.prototype=Object.create(r.prototype),o.prototype.consumer=r,o.fromSourceMap=function(e){var t=Object.create(o.prototype),n=t._names=c.fromArray(e._names.toArray(),!0),r=t._sources=c.fromArray(e._sources.toArray(),!0);t.sourceRoot=e._sourceRoot,t.sourcesContent=e._generateSourcesContent(t._sources.toArray(),t.sourceRoot),t.file=e._file;for(var s=e._mappings.toArray().slice(),u=t.__generatedMappings=[],l=t.__originalMappings=[],p=0,g=s.length;p<g;p++){var h=s[p],d=new i;d.generatedLine=h.generatedLine,d.generatedColumn=h.generatedColumn,h.source&&(d.source=r.indexOf(h.source),d.originalLine=h.originalLine,d.originalColumn=h.originalColumn,h.name&&(d.name=n.indexOf(h.name)),l.push(d)),u.push(d)}return f(t.__originalMappings,a.compareByOriginalPositions),t},o.prototype._version=3,Object.defineProperty(o.prototype,"sources",{get:function(){return this._sources.toArray().map(function(e){return null!=this.sourceRoot?a.join(this.sourceRoot,e):e},this)}}),o.prototype._parseMappings=function(e,t){for(var n,r,o,s,u,c=1,p=0,g=0,h=0,d=0,m=0,v=e.length,y=0,w={},b={},_=[],O=[];y<v;)if(";"===e.charAt(y))c++,y++,p=0;else if(","===e.charAt(y))y++;else{for((n=new i).generatedLine=c,s=y;s<v&&!this._charIsMappingSeparator(e,s);s++);if(o=w[r=e.slice(y,s)])y+=r.length;else{for(o=[];y<s;)l.decode(e,y,b),u=b.value,y=b.rest,o.push(u);if(2===o.length)throw new Error("Found a source, but no line and column");if(3===o.length)throw new Error("Found a source and line, but no column");w[r]=o}n.generatedColumn=p+o[0],p=n.generatedColumn,o.length>1&&(n.source=d+o[1],d+=o[1],n.originalLine=g+o[2],g=n.originalLine,n.originalLine+=1,n.originalColumn=h+o[3],h=n.originalColumn,o.length>4&&(n.name=m+o[4],m+=o[4])),O.push(n),"number"==typeof n.originalLine&&_.push(n)}f(O,a.compareByGeneratedPositionsDeflated),this.__generatedMappings=O,f(_,a.compareByOriginalPositions),this.__originalMappings=_},o.prototype._findMapping=function(e,t,n,r,o,i){if(e[n]<=0)throw new TypeError("Line must be greater than or equal to 1, got "+e[n]);if(e[r]<0)throw new TypeError("Column must be greater than or equal to 0, got "+e[r]);return u.search(e,t,o,i)},o.prototype.computeColumnSpans=function(){for(var e=0;e<this._generatedMappings.length;++e){var t=this._generatedMappings[e];if(e+1<this._generatedMappings.length){var n=this._generatedMappings[e+1];if(t.generatedLine===n.generatedLine){t.lastGeneratedColumn=n.generatedColumn-1;continue}}t.lastGeneratedColumn=1/0}},o.prototype.originalPositionFor=function(e){var t={generatedLine:a.getArg(e,"line"),generatedColumn:a.getArg(e,"column")},n=this._findMapping(t,this._generatedMappings,"generatedLine","generatedColumn",a.compareByGeneratedPositionsDeflated,a.getArg(e,"bias",r.GREATEST_LOWER_BOUND));if(n>=0){var o=this._generatedMappings[n];if(o.generatedLine===t.generatedLine){var i=a.getArg(o,"source",null);null!==i&&(i=this._sources.at(i),null!=this.sourceRoot&&(i=a.join(this.sourceRoot,i)));var s=a.getArg(o,"name",null);return null!==s&&(s=this._names.at(s)),{source:i,line:a.getArg(o,"originalLine",null),column:a.getArg(o,"originalColumn",null),name:s}}}return{source:null,line:null,column:null,name:null}},o.prototype.hasContentsOfAllSources=function(){return!!this.sourcesContent&&this.sourcesContent.length>=this._sources.size()&&!this.sourcesContent.some(function(e){return null==e})},o.prototype.sourceContentFor=function(e,t){if(!this.sourcesContent)return null;if(null!=this.sourceRoot&&(e=a.relative(this.sourceRoot,e)),this._sources.has(e))return this.sourcesContent[this._sources.indexOf(e)];var n;if(null!=this.sourceRoot&&(n=a.urlParse(this.sourceRoot))){var r=e.replace(/^file:\/\//,"");if("file"==n.scheme&&this._sources.has(r))return this.sourcesContent[this._sources.indexOf(r)];if((!n.path||"/"==n.path)&&this._sources.has("/"+e))return this.sourcesContent[this._sources.indexOf("/"+e)]}if(t)return null;throw new Error('"'+e+'" is not in the SourceMap.')},o.prototype.generatedPositionFor=function(e){var t=a.getArg(e,"source");if(null!=this.sourceRoot&&(t=a.relative(this.sourceRoot,t)),!this._sources.has(t))return{line:null,column:null,lastColumn:null};var n={source:t=this._sources.indexOf(t),originalLine:a.getArg(e,"line"),originalColumn:a.getArg(e,"column")},o=this._findMapping(n,this._originalMappings,"originalLine","originalColumn",a.compareByOriginalPositions,a.getArg(e,"bias",r.GREATEST_LOWER_BOUND));if(o>=0){var i=this._originalMappings[o];if(i.source===n.source)return{line:a.getArg(i,"generatedLine",null),column:a.getArg(i,"generatedColumn",null),lastColumn:a.getArg(i,"lastGeneratedColumn",null)}}return{line:null,column:null,lastColumn:null}},n.BasicSourceMapConsumer=o,s.prototype=Object.create(r.prototype),s.prototype.constructor=r,s.prototype._version=3,Object.defineProperty(s.prototype,"sources",{get:function(){for(var e=[],t=0;t<this._sections.length;t++)for(var n=0;n<this._sections[t].consumer.sources.length;n++)e.push(this._sections[t].consumer.sources[n]);return e}}),s.prototype.originalPositionFor=function(e){var t={generatedLine:a.getArg(e,"line"),generatedColumn:a.getArg(e,"column")},n=u.search(t,this._sections,function(e,t){return e.generatedLine-t.generatedOffset.generatedLine||e.generatedColumn-t.generatedOffset.generatedColumn}),r=this._sections[n];return r?r.consumer.originalPositionFor({line:t.generatedLine-(r.generatedOffset.generatedLine-1),column:t.generatedColumn-(r.generatedOffset.generatedLine===t.generatedLine?r.generatedOffset.generatedColumn-1:0),bias:e.bias}):{source:null,line:null,column:null,name:null}},s.prototype.hasContentsOfAllSources=function(){return this._sections.every(function(e){return e.consumer.hasContentsOfAllSources()})},s.prototype.sourceContentFor=function(e,t){for(var n=0;n<this._sections.length;n++){var r=this._sections[n].consumer.sourceContentFor(e,!0);if(r)return r}if(t)return null;throw new Error('"'+e+'" is not in the SourceMap.')},s.prototype.generatedPositionFor=function(e){for(var t=0;t<this._sections.length;t++){var n=this._sections[t];if(-1!==n.consumer.sources.indexOf(a.getArg(e,"source"))){var r=n.consumer.generatedPositionFor(e);if(r)return{line:r.line+(n.generatedOffset.generatedLine-1),column:r.column+(n.generatedOffset.generatedLine===r.line?n.generatedOffset.generatedColumn-1:0)}}}return{line:null,column:null}},s.prototype._parseMappings=function(e,t){this.__generatedMappings=[],this.__originalMappings=[];for(var n=0;n<this._sections.length;n++)for(var r=this._sections[n],o=r.consumer._generatedMappings,i=0;i<o.length;i++){var s=o[i],u=r.consumer._sources.at(s.source);null!==r.consumer.sourceRoot&&(u=a.join(r.consumer.sourceRoot,u)),this._sources.add(u),u=this._sources.indexOf(u);var c=r.consumer._names.at(s.name);this._names.add(c),c=this._names.indexOf(c);var l={source:u,generatedLine:s.generatedLine+(r.generatedOffset.generatedLine-1),generatedColumn:s.generatedColumn+(r.generatedOffset.generatedLine===s.generatedLine?r.generatedOffset.generatedColumn-1:0),originalLine:s.originalLine,originalColumn:s.originalColumn,name:c};this.__generatedMappings.push(l),"number"==typeof l.originalLine&&this.__originalMappings.push(l)}f(this.__generatedMappings,a.compareByGeneratedPositionsDeflated),f(this.__originalMappings,a.compareByOriginalPositions)},n.IndexedSourceMapConsumer=s},{"./array-set":3,"./base64-vlq":4,"./binary-search":6,"./quick-sort":7,"./util":9}],9:[function(e,t,n){function r(e){var t=e.match(c);return t?{scheme:t[1],auth:t[2],host:t[3],port:t[4],path:t[5]}:null}function o(e){var t="";return e.scheme&&(t+=e.scheme+":"),t+="//",e.auth&&(t+=e.auth+"@"),e.host&&(t+=e.host),e.port&&(t+=":"+e.port),e.path&&(t+=e.path),t}function i(e){var t=e,i=r(e);if(i){if(!i.path)return e;t=i.path}for(var s,a=n.isAbsolute(t),u=t.split(/\/+/),c=0,l=u.length-1;l>=0;l--)"."===(s=u[l])?u.splice(l,1):".."===s?c++:c>0&&(""===s?(u.splice(l+1,c),c=0):(u.splice(l,2),c--));return""===(t=u.join("/"))&&(t=a?"/":"."),i?(i.path=t,o(i)):t}function s(e){return e}function a(e){if(!e)return!1;var t=e.length;if(t<9)return!1;if(95!==e.charCodeAt(t-1)||95!==e.charCodeAt(t-2)||111!==e.charCodeAt(t-3)||116!==e.charCodeAt(t-4)||111!==e.charCodeAt(t-5)||114!==e.charCodeAt(t-6)||112!==e.charCodeAt(t-7)||95!==e.charCodeAt(t-8)||95!==e.charCodeAt(t-9))return!1;for(var n=t-10;n>=0;n--)if(36!==e.charCodeAt(n))return!1;return!0}function u(e,t){return e===t?0:e>t?1:-1}n.getArg=function(e,t,n){if(t in e)return e[t];if(3===arguments.length)return n;throw new Error('"'+t+'" is a required argument.')};var c=/^(?:([\w+\-.]+):)?\/\/(?:(\w+:\w+)@)?([\w.]*)(?::(\d+))?(\S*)$/,l=/^data:.+\,.+$/;n.urlParse=r,n.urlGenerate=o,n.normalize=i,n.join=function(e,t){""===e&&(e="."),""===t&&(t=".");var n=r(t),s=r(e);if(s&&(e=s.path||"/"),n&&!n.scheme)return s&&(n.scheme=s.scheme),o(n);if(n||t.match(l))return t;if(s&&!s.host&&!s.path)return s.host=t,o(s);var a="/"===t.charAt(0)?t:i(e.replace(/\/+$/,"")+"/"+t);return s?(s.path=a,o(s)):a},n.isAbsolute=function(e){return"/"===e.charAt(0)||!!e.match(c)},n.relative=function(e,t){""===e&&(e="."),e=e.replace(/\/$/,"");for(var n=0;0!==t.indexOf(e+"/");){var r=e.lastIndexOf("/");if(r<0)return t;if((e=e.slice(0,r)).match(/^([^\/]+:\/)?\/*$/))return t;++n}return Array(n+1).join("../")+t.substr(e.length+1)};var f=!("__proto__"in Object.create(null));n.toSetString=f?s:function(e){return a(e)?"$"+e:e},n.fromSetString=f?s:function(e){return a(e)?e.slice(1):e},n.compareByOriginalPositions=function(e,t,n){var r=e.source-t.source;return 0!==r?r:0!=(r=e.originalLine-t.originalLine)?r:0!=(r=e.originalColumn-t.originalColumn)||n?r:0!=(r=e.generatedColumn-t.generatedColumn)?r:0!=(r=e.generatedLine-t.generatedLine)?r:e.name-t.name},n.compareByGeneratedPositionsDeflated=function(e,t,n){var r=e.generatedLine-t.generatedLine;return 0!==r?r:0!=(r=e.generatedColumn-t.generatedColumn)||n?r:0!=(r=e.source-t.source)?r:0!=(r=e.originalLine-t.originalLine)?r:0!=(r=e.originalColumn-t.originalColumn)?r:e.name-t.name},n.compareByGeneratedPositionsInflated=function(e,t){var n=e.generatedLine-t.generatedLine;return 0!==n?n:0!=(n=e.generatedColumn-t.generatedColumn)?n:0!==(n=u(e.source,t.source))?n:0!=(n=e.originalLine-t.originalLine)?n:0!=(n=e.originalColumn-t.originalColumn)?n:u(e.name,t.name)}},{}],10:[function(e,t,n){arguments[4][2][0].apply(n,arguments)},{dup:2}],11:[function(e,t,n){!function(r,o){"use strict";"object"==typeof n?t.exports=o(e("stackframe")):r.StackGenerator=o(r.StackFrame)}(this,function(e){return{backtrace:function(t){var n=[],r=10;"object"==typeof t&&"number"==typeof t.maxStackSize&&(r=t.maxStackSize);for(var o=arguments.callee;o&&n.length<r&&o.arguments;){for(var i=new Array(o.arguments.length),s=0;s<i.length;++s)i[s]=o.arguments[s];/function(?:\s+([\w$]+))+\s*\(/.test(o.toString())?n.push(new e({functionName:RegExp.$1||void 0,args:i})):n.push(new e({args:i}));try{o=o.caller}catch(e){break}}return n}}})},{stackframe:10}],12:[function(e,t,n){arguments[4][2][0].apply(n,arguments)},{dup:2}],13:[function(e,t,n){!function(r,o){"use strict";"object"==typeof n?t.exports=o(e("source-map/lib/source-map-consumer"),e("stackframe")):r.StackTraceGPS=o(r.SourceMap||r.sourceMap,r.StackFrame)}(this,function(e,t){"use strict";function n(e){return new Promise(function(t,n){var r=new XMLHttpRequest;r.open("get",e),r.onerror=n,r.onreadystatechange=function(){4===r.readyState&&(r.status>=200&&r.status<300||"file://"===e.substr(0,7)&&r.responseText?t(r.responseText):n(new Error("HTTP status: "+r.status+" retrieving "+e)))},r.send()})}function r(e){if("undefined"!=typeof window&&window.atob)return window.atob(e);throw new Error("You must supply a polyfill for window.atob in this environment")}function o(e){if("object"!=typeof e)throw new TypeError("Given StackFrame is not an object");if("string"!=typeof e.fileName)throw new TypeError("Given file name is not a String");if("number"!=typeof e.lineNumber||e.lineNumber%1!=0||e.lineNumber<1)throw new TypeError("Given line number must be a positive integer");if("number"!=typeof e.columnNumber||e.columnNumber%1!=0||e.columnNumber<0)throw new TypeError("Given column number must be a non-negative integer");return!0}function i(e,n,r){return new Promise(function(o,i){var s=n.originalPositionFor({line:e.lineNumber,column:e.columnNumber});if(s.source){var a=n.sourceContentFor(s.source);a&&(r[s.source]=a),o(new t({functionName:s.name||e.functionName,args:e.args,fileName:s.source,lineNumber:s.line,columnNumber:s.column}))}else i(new Error("Could not get original source for given stackframe and source map"))})}return function s(a){return this instanceof s?(a=a||{},this.sourceCache=a.sourceCache||{},this.sourceMapConsumerCache=a.sourceMapConsumerCache||{},this.ajax=a.ajax||n,this._atob=a.atob||r,this._get=function(e){return new Promise(function(t,n){var r="data:"===e.substr(0,5);if(this.sourceCache[e])t(this.sourceCache[e]);else if(a.offline&&!r)n(new Error("Cannot make network requests in offline mode"));else if(r){var o=e.match(/^data:application\/json;([\w=:"-]+;)*base64,/);if(o){var i=o[0].length,s=e.substr(i),u=this._atob(s);this.sourceCache[e]=u,t(u)}else n(new Error("The encoding of the inline sourcemap is not supported"))}else{var c=this.ajax(e,{method:"get"});this.sourceCache[e]=c,c.then(t,n)}}.bind(this))},this._getSourceMapConsumer=function(t,n){return new Promise(function(r){if(this.sourceMapConsumerCache[t])r(this.sourceMapConsumerCache[t]);else{var o=new Promise(function(r,o){return this._get(t).then(function(t){"string"==typeof t&&(t=function(e){if("undefined"!=typeof JSON&&JSON.parse)return JSON.parse(e);throw new Error("You must supply a polyfill for JSON.parse in this environment")}(t.replace(/^\)\]\}'/,""))),void 0===t.sourceRoot&&(t.sourceRoot=n),r(new e.SourceMapConsumer(t))},o)}.bind(this));this.sourceMapConsumerCache[t]=o,r(o)}}.bind(this))},this.pinpoint=function(e){return new Promise(function(t,n){this.getMappedLocation(e).then(function(e){function n(){t(e)}this.findFunctionName(e).then(t,n).catch(n)}.bind(this),n)}.bind(this))},this.findFunctionName=function(e){return new Promise(function(n,r){o(e),this._get(e.fileName).then(function(r){var o=e.lineNumber,i=e.columnNumber,s=function(e,t){for(var n=[/['"]?([$_A-Za-z][$_A-Za-z0-9]*)['"]?\s*[:=]\s*function\b/,/function\s+([^('"`]*?)\s*\(([^)]*)\)/,/['"]?([$_A-Za-z][$_A-Za-z0-9]*)['"]?\s*[:=]\s*(?:eval|new Function)\b/,/\b(?!(?:if|for|switch|while|with|catch)\b)(?:(?:static)\s+)?(\S+)\s*\(.*?\)\s*\{/,/['"]?([$_A-Za-z][$_A-Za-z0-9]*)['"]?\s*[:=]\s*\(.*?\)\s*=>/],r=e.split("\n"),o="",i=Math.min(t,20),s=0;s<i;++s){var a=r[t-s-1],u=a.indexOf("//");if(u>=0&&(a=a.substr(0,u)),a){o=a+o;for(var c=n.length,l=0;l<c;l++){var f=n[l].exec(o);if(f&&f[1])return f[1]}}}}(r,o);n(s?new t({functionName:s,args:e.args,fileName:e.fileName,lineNumber:o,columnNumber:i}):e)},r).catch(r)}.bind(this))},void(this.getMappedLocation=function(e){return new Promise(function(t,n){(function(){if("function"!=typeof Object.defineProperty||"function"!=typeof Object.create)throw new Error("Unable to consume source maps in older browsers")})(),o(e);var r=this.sourceCache,s=e.fileName;this._get(s).then(function(n){var o=function(e){for(var t,n,r=/\/\/[#@] ?sourceMappingURL=([^\s'"]+)\s*$/gm;n=r.exec(e);)t=n[1];if(t)return t;throw new Error("sourceMappingURL not found")}(n),a="data:"===o.substr(0,5),u=s.substring(0,s.lastIndexOf("/")+1);return"/"===o[0]||a||/^https?:\/\/|^\/\//i.test(o)||(o=u+o),this._getSourceMapConsumer(o,u).then(function(n){return i(e,n,r).then(t).catch(function(){t(e)})})}.bind(this),n).catch(n)}.bind(this))})):new s(a)}})},{"source-map/lib/source-map-consumer":8,stackframe:12}],14:[function(e,t,n){!function(r,o){"use strict";"object"==typeof n?t.exports=o(e("error-stack-parser"),e("stack-generator"),e("stacktrace-gps")):r.StackTrace=o(r.ErrorStackParser,r.StackGenerator,r.StackTraceGPS)}(this,function(e,t,n){function r(e,t){var n={};return[e,t].forEach(function(e){for(var t in e)Object.prototype.hasOwnProperty.call(e,t)&&(n[t]=e[t]);return n}),n}function o(e){return e.stack||e["opera#sourceloc"]}function i(e,t){return"function"==typeof t?e.filter(t):e}var s={filter:function(e){return-1===(e.functionName||"").indexOf("StackTrace$$")&&-1===(e.functionName||"").indexOf("ErrorStackParser$$")&&-1===(e.functionName||"").indexOf("StackTraceGPS$$")&&-1===(e.functionName||"").indexOf("StackGenerator$$")},sourceCache:{}},a=function(){try{throw new Error}catch(e){return e}};return{get:function(e){var t=a();return o(t)?this.fromError(t,e):this.generateArtificially(e)},getSync:function(n){n=r(s,n);var u=a();return i(o(u)?e.parse(u):t.backtrace(n),n.filter)},fromError:function(t,o){o=r(s,o);var a=new n(o);return new Promise(function(n){var r=i(e.parse(t),o.filter);n(Promise.all(r.map(function(e){return new Promise(function(t){function n(){t(e)}a.pinpoint(e).then(t,n).catch(n)})})))}.bind(this))},generateArtificially:function(e){e=r(s,e);var n=t.backtrace(e);return"function"==typeof e.filter&&(n=n.filter(e.filter)),Promise.resolve(n)},instrument:function(e,t,n,r){if("function"!=typeof e)throw new Error("Cannot instrument non-function object");if("function"==typeof e.__stacktraceOriginalFn)return e;var i=function(){try{return this.get().then(t,n).catch(n),e.apply(r||this,arguments)}catch(e){throw o(e)&&this.fromError(e).then(t,n).catch(n),e}}.bind(this);return i.__stacktraceOriginalFn=e,i},deinstrument:function(e){if("function"!=typeof e)throw new Error("Cannot de-instrument non-function object");return"function"==typeof e.__stacktraceOriginalFn?e.__stacktraceOriginalFn:e},report:function(e,t,n,r){return new Promise(function(o,i){var s=new XMLHttpRequest;if(s.onerror=i,s.onreadystatechange=function(){4===s.readyState&&(s.status>=200&&s.status<400?o(s.responseText):i(new Error("POST to "+t+" failed with status: "+s.status)))},s.open("post",t),s.setRequestHeader("Content-Type","application/json"),r&&"object"==typeof r.headers){var a=r.headers;for(var u in a)Object.prototype.hasOwnProperty.call(a,u)&&s.setRequestHeader(u,a[u])}var c={stack:e};null!=n&&(c.message=n),s.send(JSON.stringify(c))})}}})},{"error-stack-parser":1,"stack-generator":11,"stacktrace-gps":13}]},{},[14])(14)})}_sourceweb_startup();
+</script><head>
+  <base href="/p/underwater-corals-scene-vubwxk/">
+  <title>Underwater Corals Scene</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Underwater Corals Scene — created on Omma">
+    <meta property="og:title" content="Underwater Corals Scene">
+    <meta property="og:description" content="Underwater Corals Scene — created on Omma">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://omma.build/api/og-image?slug=underwater-corals-scene-vubwxk">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Underwater Corals Scene">
+    <meta name="twitter:description" content="Underwater Corals Scene — created on Omma">
+    <meta name="twitter:image" content="https://omma.build/api/og-image?slug=underwater-corals-scene-vubwxk">
+  <script>window.UPLOADED_3D_MODELS = [{"name":"clownfish.glb","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/clownfish.glb","type":"model/gltf-binary"},{"name":"coral-big.glb","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/coral-big.glb","type":"model/gltf-binary"},{"name":"coral-brain.glb","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/coral-brain.glb","type":"model/gltf-binary"},{"name":"coral-red-orange.glb","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/coral-red-orange.glb","type":"model/gltf-binary"},{"name":"coral-red.glb","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/coral-red.glb","type":"model/gltf-binary"}];</script>
+  <script>
+window.UPLOADED_IMAGES = [{"name":"pasted-image-2026-05-21T14-13-10.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T14-13-10.png","type":"image/png"},{"name":"pasted-image-2026-05-21T13-57-02.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T13-57-02.png","type":"image/png"},{"name":"pasted-image-2026-05-21T13-53-22.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T13-53-22.png","type":"image/png"},{"name":"pasted-image-2026-05-21T13-51-21.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T13-51-21.png","type":"image/png"},{"name":"pasted-image-2026-05-21T13-44-01.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T13-44-01.png","type":"image/png"},{"name":"pasted-image-2026-05-21T13-33-47.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T13-33-47.png","type":"image/png"},{"name":"pasted-image-2026-05-21T13-30-34.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T13-30-34.png","type":"image/png"},{"name":"pasted-image-2026-05-21T13-29-29.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T13-29-29.png","type":"image/png"},{"name":"pasted-image-2026-05-21T13-23-44.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T13-23-44.png","type":"image/png"},{"name":"pasted-image-2026-05-21T11-24-49.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T11-24-49.png","type":"image/png"},{"name":"pasted-image-2026-05-21T09-55-49.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T09-55-49.png","type":"image/png"},{"name":"pasted-image-2026-05-21T09-56-03.png","dataUrl":"https://rrzvgzjttmyseqsmmyvn.supabase.co/storage/v1/object/public/published/underwater-corals-scene-vubwxk/assets/pasted-image-2026-05-21T09-56-03.png","type":"image/png"}];
+(function() {
+  var imgs = window.UPLOADED_IMAGES || [];
+  if (!imgs.length) return;
+  var lookup = {};
+  imgs.forEach(function(img) {
+    lookup['assets/' + img.name] = img.dataUrl;
+    lookup[img.name] = img.dataUrl;
+    lookup['./' + 'assets/' + img.name] = img.dataUrl;
+  });
+  function resolveAsset(url) {
+    if (typeof url !== 'string') return null;
+    var clean = url.replace(/^\.?\//, '');
+    return lookup[clean] || lookup[url] || null;
+  }
+  var _origFetch = window.fetch;
+  window.fetch = function(url, opts) {
+    var resolved = resolveAsset(typeof url === 'string' ? url : (url && url.url) || '');
+    if (resolved) return fetch(resolved, opts);
+    return _origFetch.apply(this, arguments);
+  };
+  var _origXHROpen = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function(method, url) {
+    var resolved = resolveAsset(url);
+    if (resolved) arguments[1] = resolved;
+    return _origXHROpen.apply(this, arguments);
+  };
+  var imgSrcDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+  if (imgSrcDesc && imgSrcDesc.set) {
+    Object.defineProperty(HTMLImageElement.prototype, 'src', {
+      set: function(val) {
+        var resolved = resolveAsset(val);
+        imgSrcDesc.set.call(this, resolved || val);
+      },
+      get: imgSrcDesc.get,
+      configurable: true
+    });
+  }
+})();
+</script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three/webgpu": "https://cdn.jsdelivr.net/npm/three@0.183.2/build/three.webgpu.js",
+      "three/tsl": "https://cdn.jsdelivr.net/npm/three@0.183.2/build/three.tsl.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.183.2/examples/jsm/",
+      "lil-gui": "https://esm.sh/lil-gui",
+      "lil-gui/": "https://esm.sh/lil-gui/",
+      "stats-gl": "https://esm.sh/stats-gl",
+      "stats-gl/": "https://esm.sh/stats-gl/",
+      "three": "https://cdn.jsdelivr.net/npm/three@0.183.2/build/three.module.js"
+    }
+  }
+  </script>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg">
+    <style>.lil-gui {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: 1;
+  font-weight: normal;
+  font-style: normal;
+  text-align: left;
+  color: var(--text-color);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  --background-color: #1f1f1f;
+  --text-color: #ebebeb;
+  --title-background-color: #111111;
+  --title-text-color: #ebebeb;
+  --widget-color: #424242;
+  --hover-color: #4f4f4f;
+  --focus-color: #595959;
+  --number-color: #2cc9ff;
+  --string-color: #a2db3c;
+  --font-size: 11px;
+  --input-font-size: 11px;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-family-mono: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace;
+  --padding: 4px;
+  --spacing: 4px;
+  --widget-height: 20px;
+  --title-height: calc(var(--widget-height) + var(--spacing) * 1.25);
+  --name-width: 45%;
+  --slider-knob-width: 2px;
+  --slider-input-width: 27%;
+  --color-input-width: 27%;
+  --slider-input-min-width: 45px;
+  --color-input-min-width: 45px;
+  --folder-indent: 7px;
+  --widget-padding: 0 0 0 3px;
+  --widget-border-radius: 2px;
+  --checkbox-size: calc(0.75 * var(--widget-height));
+  --scrollbar-width: 5px;
+}
+.lil-gui, .lil-gui * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.lil-gui.lil-root {
+  width: var(--width, 245px);
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color);
+}
+.lil-gui.lil-root > .lil-title {
+  background: var(--title-background-color);
+  color: var(--title-text-color);
+}
+.lil-gui.lil-root > .lil-children {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.lil-gui.lil-root > .lil-children::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+  background: var(--background-color);
+}
+.lil-gui.lil-root > .lil-children::-webkit-scrollbar-thumb {
+  border-radius: var(--scrollbar-width);
+  background: var(--focus-color);
+}
+@media (pointer: coarse) {
+  .lil-gui.lil-allow-touch-styles, .lil-gui.lil-allow-touch-styles .lil-gui {
+    --widget-height: 28px;
+    --padding: 6px;
+    --spacing: 6px;
+    --font-size: 13px;
+    --input-font-size: 16px;
+    --folder-indent: 10px;
+    --scrollbar-width: 7px;
+    --slider-input-min-width: 50px;
+    --color-input-min-width: 65px;
+  }
+}
+.lil-gui.lil-force-touch-styles, .lil-gui.lil-force-touch-styles .lil-gui {
+  --widget-height: 28px;
+  --padding: 6px;
+  --spacing: 6px;
+  --font-size: 13px;
+  --input-font-size: 16px;
+  --folder-indent: 10px;
+  --scrollbar-width: 7px;
+  --slider-input-min-width: 50px;
+  --color-input-min-width: 65px;
+}
+.lil-gui.lil-auto-place, .lil-gui.autoPlace {
+  max-height: 100%;
+  position: fixed;
+  top: 0;
+  right: 15px;
+  z-index: 1001;
+}
+
+.lil-controller {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--padding);
+  margin: var(--spacing) 0;
+}
+.lil-controller.lil-disabled {
+  opacity: 0.5;
+}
+.lil-controller.lil-disabled, .lil-controller.lil-disabled * {
+  pointer-events: none !important;
+}
+.lil-controller > .lil-name {
+  min-width: var(--name-width);
+  flex-shrink: 0;
+  white-space: pre;
+  padding-right: var(--spacing);
+  line-height: var(--widget-height);
+}
+.lil-controller .lil-widget {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: var(--widget-height);
+}
+.lil-controller.lil-string input {
+  color: var(--string-color);
+}
+.lil-controller.lil-boolean {
+  cursor: pointer;
+}
+.lil-controller.lil-color .lil-display {
+  width: 100%;
+  height: var(--widget-height);
+  border-radius: var(--widget-border-radius);
+  position: relative;
+}
+@media (hover: hover) {
+  .lil-controller.lil-color .lil-display:hover:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    border-radius: var(--widget-border-radius);
+    border: 1px solid #fff9;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+.lil-controller.lil-color input[type=color] {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.lil-controller.lil-color input[type=text] {
+  margin-left: var(--spacing);
+  font-family: var(--font-family-mono);
+  min-width: var(--color-input-min-width);
+  width: var(--color-input-width);
+  flex-shrink: 0;
+}
+.lil-controller.lil-option select {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  max-width: 100%;
+}
+.lil-controller.lil-option .lil-display {
+  position: relative;
+  pointer-events: none;
+  border-radius: var(--widget-border-radius);
+  height: var(--widget-height);
+  line-height: var(--widget-height);
+  max-width: 100%;
+  overflow: hidden;
+  word-break: break-all;
+  padding-left: 0.55em;
+  padding-right: 1.75em;
+  background: var(--widget-color);
+}
+@media (hover: hover) {
+  .lil-controller.lil-option .lil-display.lil-focus {
+    background: var(--focus-color);
+  }
+}
+.lil-controller.lil-option .lil-display.lil-active {
+  background: var(--focus-color);
+}
+.lil-controller.lil-option .lil-display:after {
+  font-family: "lil-gui";
+  content: "↕";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding-right: 0.375em;
+}
+.lil-controller.lil-option .lil-widget,
+.lil-controller.lil-option select {
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .lil-controller.lil-option .lil-widget:hover .lil-display {
+    background: var(--hover-color);
+  }
+}
+.lil-controller.lil-number input {
+  color: var(--number-color);
+}
+.lil-controller.lil-number.lil-has-slider input {
+  margin-left: var(--spacing);
+  width: var(--slider-input-width);
+  min-width: var(--slider-input-min-width);
+  flex-shrink: 0;
+}
+.lil-controller.lil-number .lil-slider {
+  width: 100%;
+  height: var(--widget-height);
+  background: var(--widget-color);
+  border-radius: var(--widget-border-radius);
+  padding-right: var(--slider-knob-width);
+  overflow: hidden;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+@media (hover: hover) {
+  .lil-controller.lil-number .lil-slider:hover {
+    background: var(--hover-color);
+  }
+}
+.lil-controller.lil-number .lil-slider.lil-active {
+  background: var(--focus-color);
+}
+.lil-controller.lil-number .lil-slider.lil-active .lil-fill {
+  opacity: 0.95;
+}
+.lil-controller.lil-number .lil-fill {
+  height: 100%;
+  border-right: var(--slider-knob-width) solid var(--number-color);
+  box-sizing: content-box;
+}
+
+.lil-dragging .lil-gui {
+  --hover-color: var(--widget-color);
+}
+.lil-dragging * {
+  cursor: ew-resize !important;
+}
+.lil-dragging.lil-vertical * {
+  cursor: ns-resize !important;
+}
+
+.lil-gui .lil-title {
+  height: var(--title-height);
+  font-weight: 600;
+  padding: 0 var(--padding);
+  width: 100%;
+  text-align: left;
+  background: none;
+  text-decoration-skip: objects;
+}
+.lil-gui .lil-title:before {
+  font-family: "lil-gui";
+  content: "▾";
+  padding-right: 2px;
+  display: inline-block;
+}
+.lil-gui .lil-title:active {
+  background: var(--title-background-color);
+  opacity: 0.75;
+}
+@media (hover: hover) {
+  body:not(.lil-dragging) .lil-gui .lil-title:hover {
+    background: var(--title-background-color);
+    opacity: 0.85;
+  }
+  .lil-gui .lil-title:focus {
+    text-decoration: underline var(--focus-color);
+  }
+}
+.lil-gui.lil-root > .lil-title:focus {
+  text-decoration: none !important;
+}
+.lil-gui.lil-closed > .lil-title:before {
+  content: "▸";
+}
+.lil-gui.lil-closed > .lil-children {
+  transform: translateY(-7px);
+  opacity: 0;
+}
+.lil-gui.lil-closed:not(.lil-transition) > .lil-children {
+  display: none;
+}
+.lil-gui.lil-transition > .lil-children {
+  transition-duration: 300ms;
+  transition-property: height, opacity, transform;
+  transition-timing-function: cubic-bezier(0.2, 0.6, 0.35, 1);
+  overflow: hidden;
+  pointer-events: none;
+}
+.lil-gui .lil-children:empty:before {
+  content: "Empty";
+  padding: 0 var(--padding);
+  margin: var(--spacing) 0;
+  display: block;
+  height: var(--widget-height);
+  font-style: italic;
+  line-height: var(--widget-height);
+  opacity: 0.5;
+}
+.lil-gui.lil-root > .lil-children > .lil-gui > .lil-title {
+  border: 0 solid var(--widget-color);
+  border-width: 1px 0;
+  transition: border-color 300ms;
+}
+.lil-gui.lil-root > .lil-children > .lil-gui.lil-closed > .lil-title {
+  border-bottom-color: transparent;
+}
+.lil-gui + .lil-controller {
+  border-top: 1px solid var(--widget-color);
+  margin-top: 0;
+  padding-top: var(--spacing);
+}
+.lil-gui .lil-gui .lil-gui > .lil-title {
+  border: none;
+}
+.lil-gui .lil-gui .lil-gui > .lil-children {
+  border: none;
+  margin-left: var(--folder-indent);
+  border-left: 2px solid var(--widget-color);
+}
+.lil-gui .lil-gui .lil-controller {
+  border: none;
+}
+
+.lil-gui label, .lil-gui input, .lil-gui button {
+  -webkit-tap-highlight-color: transparent;
+}
+.lil-gui input {
+  border: 0;
+  outline: none;
+  font-family: var(--font-family);
+  font-size: var(--input-font-size);
+  border-radius: var(--widget-border-radius);
+  height: var(--widget-height);
+  background: var(--widget-color);
+  color: var(--text-color);
+  width: 100%;
+}
+@media (hover: hover) {
+  .lil-gui input:hover {
+    background: var(--hover-color);
+  }
+  .lil-gui input:active {
+    background: var(--focus-color);
+  }
+}
+.lil-gui input:disabled {
+  opacity: 1;
+}
+.lil-gui input[type=text],
+.lil-gui input[type=number] {
+  padding: var(--widget-padding);
+  -moz-appearance: textfield;
+}
+.lil-gui input[type=text]:focus,
+.lil-gui input[type=number]:focus {
+  background: var(--focus-color);
+}
+.lil-gui input[type=checkbox] {
+  appearance: none;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  border-radius: var(--widget-border-radius);
+  text-align: center;
+  cursor: pointer;
+}
+.lil-gui input[type=checkbox]:checked:before {
+  font-family: "lil-gui";
+  content: "✓";
+  font-size: var(--checkbox-size);
+  line-height: var(--checkbox-size);
+}
+@media (hover: hover) {
+  .lil-gui input[type=checkbox]:focus {
+    box-shadow: inset 0 0 0 1px var(--focus-color);
+  }
+}
+.lil-gui button {
+  outline: none;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  color: var(--text-color);
+  width: 100%;
+  border: none;
+}
+.lil-gui .lil-controller button {
+  height: var(--widget-height);
+  text-transform: none;
+  background: var(--widget-color);
+  border-radius: var(--widget-border-radius);
+}
+@media (hover: hover) {
+  .lil-gui .lil-controller button:hover {
+    background: var(--hover-color);
+  }
+  .lil-gui .lil-controller button:focus {
+    box-shadow: inset 0 0 0 1px var(--focus-color);
+  }
+}
+.lil-gui .lil-controller button:active {
+  background: var(--focus-color);
+}
+
+@font-face {
+  font-family: "lil-gui";
+  src: url("data:application/font-woff2;charset=utf-8;base64,d09GMgABAAAAAALkAAsAAAAABtQAAAKVAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHFQGYACDMgqBBIEbATYCJAMUCwwABCAFhAoHgQQbHAbIDiUFEYVARAAAYQTVWNmz9MxhEgodq49wYRUFKE8GWNiUBxI2LBRaVnc51U83Gmhs0Q7JXWMiz5eteLwrKwuxHO8VFxUX9UpZBs6pa5ABRwHA+t3UxUnH20EvVknRerzQgX6xC/GH6ZUvTcAjAv122dF28OTqCXrPuyaDER30YBA1xnkVutDDo4oCi71Ca7rrV9xS8dZHbPHefsuwIyCpmT7j+MnjAH5X3984UZoFFuJ0yiZ4XEJFxjagEBeqs+e1iyK8Xf/nOuwF+vVK0ur765+vf7txotUi0m3N0m/84RGSrBCNrh8Ee5GjODjF4gnWP+dJrH/Lk9k4oT6d+gr6g/wssA2j64JJGP6cmx554vUZnpZfn6ZfX2bMwPPrlANsB86/DiHjhl0OP+c87+gaJo/gY084s3HoYL/ZkWHTRfBXvvoHnnkHvngKun4KBE/ede7tvq3/vQOxDXB1/fdNz6XbPdcr0Vhpojj9dG+owuSKFsslCi1tgEjirjXdwMiov2EioadxmqTHUCIwo8NgQaeIasAi0fTYSPTbSmwbMOFduyh9wvBrESGY0MtgRjtgQR8Q1bRPohn2UoCRZf9wyYANMXFeJTysqAe0I4mrherOekFdKMrYvJjLvOIUM9SuwYB5DVZUwwVjJJOaUnZCmcEkIZZrKqNvRGRMvmFZsmhP4VMKCSXBhSqUBxgMS7h0cZvEd71AWkEhGWaeMFcNnpqyJkyXgYL7PQ1MoSq0wDAkRtJIijkZSmqYTiSImfLiSWXIZwhRh3Rug2X0kk1Dgj+Iu43u5p98ghopcpSo0Uyc8SnjlYX59WUeaMoDqmVD2TOWD9a4pCRAzf2ECgwGcrHjPOWY9bNxq/OL3I/QjwEAAAA=") format("woff2");
+}</style><link rel="stylesheet" href="https://unpkg.com/modern-normalize@3.0.1/modern-normalize.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&amp;family=Inter:wght@300;400;500;600">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abyssal — Living Reef Exhibit</title>
+     <style>
+      * { margin: 0; padding: 0; outline: none !important; box-sizing: border-box; }
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #02060d;
+        font-family: 'Inter', system-ui, sans-serif;
+        color: rgba(220, 235, 245, 0.92);
+        letter-spacing: 0.01em;
+      }
+
+      canvas {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+      }
+
+      /* ── Shared overlay ──────────────────────────────────────────────── */
+      .ui {
+        position: fixed;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .ui a, .ui button {
+        pointer-events: auto;
+      }
+
+      /* ── Top bar ─────────────────────────────────────────────────────── */
+      .topbar {
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 22px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(to bottom, rgba(2, 6, 13, 0.55), rgba(2, 6, 13, 0));
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: inherit;
+        pointer-events: auto;
+      }
+      .brand-mark {
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(180, 220, 240, 0.45);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-family: 'Fraunces', serif;
+        font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+        font-size: 17px;
+        font-weight: 600;
+        color: rgba(220, 235, 245, 0.95);
+      }
+      .brand-name {
+        font-family: 'Fraunces', serif;
+        font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0;
+        color: rgba(220, 235, 245, 0.95);
+      }
+      .brand-name span {
+        color: rgba(150, 200, 220, 0.7);
+        margin: 0 2px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 34px;
+      }
+      .nav a {
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: rgba(220, 235, 245, 0.75);
+        font-weight: 400;
+        transition: color 0.25s ease;
+      }
+      .nav a:hover { color: rgba(220, 235, 245, 1); }
+      .nav a.active { color: rgba(220, 235, 245, 1); }
+      .nav a.active::after {
+        content: '';
+        display: block;
+        height: 1px;
+        background: rgba(180, 220, 240, 0.5);
+        margin-top: 6px;
+      }
+
+      .cta {
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 11px 22px;
+        color: rgba(220, 235, 245, 0.95);
+        background: rgba(140, 200, 230, 0.08);
+        border: 1px solid rgba(180, 220, 240, 0.35);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        cursor: pointer;
+        transition: background 0.25s ease, border-color 0.25s ease;
+      }
+      .cta:hover {
+        background: rgba(140, 200, 230, 0.18);
+        border-color: rgba(180, 220, 240, 0.6);
+      }
+
+      /* ── Hero text ───────────────────────────────────────────────────── */
+      .hero {
+        left: 40px;
+        bottom: 110px;
+        max-width: 460px;
+      }
+      .hero-eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(150, 200, 220, 0.8);
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .hero-eyebrow::before {
+        content: '';
+        width: 28px;
+        height: 1px;
+        background: rgba(150, 200, 220, 0.5);
+      }
+      .hero-title {
+        font-family: 'Fraunces', serif;
+        font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+        font-size: 60px;
+        line-height: 1.02;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: rgba(230, 242, 250, 0.97);
+        margin-bottom: 18px;
+      }
+      .hero-title em {
+        font-style: italic;
+        font-weight: 500;
+        color: rgba(180, 220, 240, 0.9);
+      }
+      .hero-sub {
+        font-size: 14px;
+        line-height: 1.65;
+        color: rgba(200, 220, 235, 0.7);
+        max-width: 360px;
+      }
+
+      /* ── Species card (bottom right) ─────────────────────────────────── */
+      .species {
+        right: 40px;
+        bottom: 110px;
+        width: 280px;
+        padding: 22px;
+        border: 1px solid rgba(180, 220, 240, 0.18);
+        background: rgba(4, 12, 22, 0.45);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .species-label {
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(150, 200, 220, 0.7);
+        margin-bottom: 14px;
+      }
+      .species-name {
+        font-family: 'Fraunces', serif;
+        font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+        font-size: 24px;
+        line-height: 1.2;
+        font-weight: 500;
+        color: rgba(230, 242, 250, 0.95);
+        margin-bottom: 4px;
+      }
+      .species-latin {
+        font-size: 12px;
+        font-style: italic;
+        color: rgba(150, 200, 220, 0.7);
+        margin-bottom: 14px;
+      }
+      .species-meta {
+        display: flex;
+        gap: 18px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(180, 220, 240, 0.12);
+      }
+      .species-meta div {
+        flex: 1;
+      }
+      .species-meta .k {
+        font-size: 9px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: rgba(150, 200, 220, 0.55);
+        margin-bottom: 4px;
+      }
+      .species-meta .v {
+        font-size: 13px;
+        color: rgba(220, 235, 245, 0.9);
+        font-weight: 500;
+      }
+
+      /* ── Bottom bar ──────────────────────────────────────────────────── */
+      .bottombar {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 22px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(150, 200, 220, 0.55);
+        background: linear-gradient(to top, rgba(2, 6, 13, 0.5), rgba(2, 6, 13, 0));
+      }
+      .bottombar .dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(120, 220, 180, 0.8);
+        margin-right: 10px;
+        vertical-align: middle;
+        box-shadow: 0 0 8px rgba(120, 220, 180, 0.6);
+        animation: pulse 2.2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+      .bottombar .right {
+        display: flex;
+        gap: 28px;
+      }
+
+      /* ── Hamburger menu (mobile) ─────────────────────────────────── */
+      .hamburger {
+        display: none;
+        pointer-events: auto;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .hamburger span {
+        display: block;
+        width: 22px;
+        height: 1.5px;
+        background: rgba(220, 235, 245, 0.85);
+        transition: transform 0.25s ease, opacity 0.25s ease;
+      }
+
+      /* ── Mobile / Tablet ─────────────────────────────────────────── */
+      @media (max-width: 900px) {
+        .topbar {
+          padding: 16px 20px;
+        }
+        .nav, .cta {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+
+        .hero {
+          left: 20px;
+          right: 20px;
+          bottom: 80px;
+          max-width: none;
+        }
+        .hero-title {
+          font-size: 36px;
+        }
+        .hero-sub {
+          font-size: 13px;
+          max-width: none;
+        }
+
+        .species {
+          display: none;
+        }
+
+        .bottombar {
+          padding: 14px 20px;
+          flex-direction: column;
+          gap: 6px;
+          align-items: flex-start;
+          font-size: 10px;
+        }
+        .bottombar .right {
+          gap: 16px;
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-title {
+          font-size: 28px;
+        }
+        .hero-sub {
+          font-size: 12px;
+          line-height: 1.55;
+        }
+        .hero-eyebrow {
+          font-size: 9px;
+          margin-bottom: 12px;
+        }
+        .brand-name {
+          font-size: 18px;
+        }
+        .brand-mark {
+          width: 26px;
+          height: 26px;
+          font-size: 14px;
+        }
+      }
+
+      /* ── Loader ────────────────────────────────────────────────────── */
+      #loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: #02060d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+      }
+      #loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      #loader .ring {
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(180, 220, 240, 0.12);
+        border-top-color: rgba(180, 220, 240, 0.6);
+        border-radius: 50%;
+        animation: spin 1.4s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+
+  
+  <style type="text/css">.eruda-search-highlight-block{display:inline}.eruda-search-highlight-block .eruda-keyword{background:#332a00;color:#ffcb6b}</style><style type="text/css">@font-face{font-family:eruda-icon;src:url('data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAvoAAsAAAAAEZgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQAAAAFZHb1PUY21hcAAAAYQAAACVAAACUPKX+h1nbHlmAAACHAAAB1oAAAoQydSW4mhlYWQAAAl4AAAAMQAAADYYn0vGaGhlYQAACawAAAAdAAAAJAgEBBVobXR4AAAJzAAAABcAAABIRAb//GxvY2EAAAnkAAAAJgAAACYRiA/MbWF4cAAACgwAAAAfAAAAIAEjAQ1uYW1lAAAKLAAAASkAAAIWm5e+CnBvc3QAAAtYAAAAjwAAAMnZZQoFeJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQ+zjiBgZWBgamX6QwDA0M/hGZ8zWDEyAEUZWBlZsAKAtJcUxgcPjJ+FGQBcWNYmBgYgTQIMwAA9pkJ13ic7ZHJDcMwDATHtnyf6iNVpKC8Um6aUAUOV5syQmA4EEEJAgn0QBc8ggTNmwbFK6pNrXcstZ541p6kesn3HblRjnOquY3eFC8OjEzMcW9lY+fg5CJHy8A/tpo/v1PWFE2da2uQO6P9lGQ06dIb7a4MBnk0yJNBng3yYrTTshrkzeh3ZTfIh0E+DfJlkLMhfwF2lyt5AAAAeJx1FltsFNf1nntnZ/YxO7PjnZ3ZB55ld9kZ73q9750FO9hYGDDYYLB5NLwMNRgCqFFpkhqFDz6IlKCUqLSfSb7cfkDVRCoVbdWgiqqNqoJUKYR+VMpHP9JWfXzSNu2ue+7sBreV4rXOPfee93OXAME/RtnPiUJIPusEwK0buhQAQxfpR3q4Ows/VOyU0n0TvqakxhW4i/eUE+6+2f1G2EkRT54+ZavER0gA2gFw6PnuO7vgdvfwLujAqZ3do91jO3t8LE+/xe2ALoGYdcBuuo1M3WD50BoJWRwYKiWqQb+i8ksI8DUW69u4yvLrsnZLa7p1Ewz6KnIGLcOwgsiNwutaOEaYZ/cT9gkJkhixvRhtx2412yBGUZXbqJuGaUBWAd2Cetttu03OQMNH9kwPD9fg3uzva93pvScOz0wXS91fvPrk6tUn/7h0fuvExNbzl56UitMzh4/NdadrMHFsH9yrDQ9P74HLVz/++5OrnOEzzum57/nxPnufmKSKUWi6mK2AxIHdnACnnwrQVTAx9blMP8Q0tDkwKDEGQwsfiKo46fPdnw8ZCmCI8F4PX0N8nQ6/WyOKEZq/7/NN4sMHC6FBw4CvSn1MhXVqvy4fsp9hrghg+bH0JtYR2C9Xuj/o3l2BWQ/A3pXuXbYLAcz+D4HHtrZGiAACIUWyHbWIKohOGWOagAqUwTXQfx4H5lmlpiEpGDeGXYG8bloYbr09DjztXCTrUeFpJDMWHwwPUEF/OTuv0Y0F7QUqsCvGFlGIXQh93QwKhpLQL1KBdrpDzs3ji79ZPH7TGfovFN5DHX2+VzLzWjFNtQvU51sxo1ZSv+hfMQcVrv8iFYUd5/9f2kOf1e0eu0fiXt2+qD5fWNB/ilihmOpVyAr2KiTC/XW8R/eq+R0/log3M7/GsEQi5/10bf2i9hn6ff0xO0wGSJrU0DMvc8/SyXPJsmVojkPdAl0BllVoDFu8YYzTZpnCv144deJmPn/zxKmPPkcujC6Nji69zMFYorpJz43lknjom6rsUKFw6+TiraFicejW4slbhULn0z4nAngeWRKbxrKAZwMl0LVeX02ya0Tle8HOZcWYphuNehvcJit2HodCmmlqQZmWDFqGWdHUOvs1U4KZgc3kmfwddgd7imAT5bKSKIk6n9WGF2BOoTlvlJt8Zr0pljIaG3nu7UMvnTm1ZXR0y6kzL53+0sEV80Xj2JXtR2ZwmnE4Z45Mjm0pfQ9eYSNbJ8c2n17649LpzWPFwq1jE6dbpeLuPd/fs7tYSsZHkGXdjwfsARnC3aFAtkxbDc+N9V3h+WZmNJPnmuoiG9+2enf12tSlysi+uZ/M7RupcOTEjm1bqze6P7rcI0492DY1dW316InP6R5jKlm5AdOXPdLd1Wf99xf2V5LwMpFzxqGF9cNq6hZt1N22GcNpRbea45RbVyj9bUktjrTPvvbW9eV2++z16ckrNRViC513a8d32vbO40u9A26otSuT09fPttvL19967Wx7pKiWun9egNg6Dz/6PvwUd2iUJDELuSy2PjY3z8Ig5FoZrQGSKTkSg0O3z52jy+Vk1M+mOocf0nOPHu14+Mbrd5bp8rlk1FLDtx91DoH2xsMdjx7RHKqVCFlbE3wCkG+SO+QxeUo+Ix2edHAnoIXZLeNM2TzLbdc7RN4H2T5BBQVw+HCn4KNHw0ANs/+J4bB6T/wVH6zeDuLcCNLQcL3WMeu9G17GcWF5ptoufzLwRC/65qF/9qhm36okDkPb9vzhsmXqYCY8Y54GjlHT8UQc9INjbc8p29t6DteAXNwQKjfbDko7ksk+VCxtIB6SjIHBcmJjQI7QgNTaLicFNR7bbyRVlpKs0bQSFJgEzJepqCUjFQgaEUGQtKg/LEgCgN8nS8GYEknKkqlZI4mNfllhsrRhdFMiaOrpaEEXFZ8/IscLzZQWEEGkqKka1EMm06KSnIiUIlHGJKG77cz8XGmEsXr9wMLi0vz+kTKl1erc/KL8B18wvKGye0oZ8Adi+Wy9MgmSX27HtXixEtfwzc42DL8ckX+lDwmBsOwXVDWghQWRGcwnFepmVNDLTqKSZ75dsXdLB2enz9I03RfUgnHHTWlBSZYTWSOd95k0FRdC/o2yHApnpCALJMJiVA0aoQF/bWMo4leMZHMoAtQXCInBoGEN5P2iX/D7RFmK2M+le5oycSsvGoKSjNhR1UchKIY3xKImz7JghKKBalpkVAJfILLBtePJSDRlumr3edaoHTy0fHL/3lKZ0XrtwMKXFw/Mlas/tvWEHJ3YpUbjg5bCRpubxaKWlLVQolBNDPA3usUSA35xDBPqjwyoGpN84ZAcEk1JDtvVuF7Uy5viNYeJq/rrhT/NzL0IaT5qax38PmUCxd87SYJTkscFKOLPHtzemfo4AH7vGDH+hWO3zKzNb7h0/tY9rruujjDgDrPqsBvo/NoqWvjfSOXzbj7/bVayUyn734+dSduepEdjlhXrfpfDp/mWbbfyaPo/itrIyAAAeJxjYGRgYABim4vFM+L5bb4ycLMwgMCt/cwpMPr/3///WVhZmIBcDgYQyQAARw4L3AAAAHicY2BkYGBhAAEW1v9///9lYWVgZEAFQgBbzAQjAAAAeJxjYGBgYMGL///HK88KVvMXAFerBEQAAAAAAAAgADQAUgBwALQBAAEiAZAB3AIsAkwCkALQAxIDQATKBQgAAHicY2BkYGAQYmRkYGcAASYg5gJCBob/YD4DAAsEATIAeJxlkD1uwkAUhMdgSAJSghQpKbNVCiKZn5IDQE9Bl8KYtTGyvdZ6QaLLCXKEHCGniHKCHChj82hgLT9/M2/e7soABviFh3p5uG1qvVq4oTpxm/Qg7JOfhTvo40W4S38o3MMbpsJ9POKdO3j+HZ0BSuEW7vEh3Kb/KeyTv4Q7eMK3cJf+j3APK/wJ9/HqDdPIFLEp3FIn+yy0Z3n+rrStUlOoSTA+WwtdaBs6vVHro6oOydS5WMXW5GrOrs4yo0prdjpywda5cjYaxeIHkcmRIoJBgbipDktoJNgjQwh71b3UK6YtKvq1VpggwPgqtWCqaJIhlcaGyTWOrBUOPG1K1zGt+FrO5KS5zGreJCMr/u+6t6MT0Q+wbaZKzDDiE1/kg+YO+T89EV6oAAAAeJxti9EOgjAUQ1fYBg4Vxe/go5ZxEZPJyOUmyN+7yKt9aE+aVhXqkFP/1aFACQ0Diwo1TnBocMYFV7S44Y4OD+U8c9r6SKM0B/LrOYkLnkn6IW1zc+CvNiGS5zqk98K0rnagSEKG8pEtfRY/DyXtpJfo94ppzKPJZCOxaz6GKUekIFpSinrzPCv1BZLnLysA') format('woff')}[class*=' eruda-icon-'],[class^='eruda-icon-']{font-family:eruda-icon!important;font-size:16px;font-style:normal;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.eruda-icon-arrow-left:before{content:'\f101'}.eruda-icon-arrow-right:before{content:'\f102'}.eruda-icon-caret-down:before{content:'\f103'}.eruda-icon-caret-right:before{content:'\f104'}.eruda-icon-clear:before{content:'\f105'}.eruda-icon-compress:before{content:'\f106'}.eruda-icon-delete:before{content:'\f107'}.eruda-icon-error:before{content:'\f108'}.eruda-icon-expand:before{content:'\f109'}.eruda-icon-eye:before{content:'\f10a'}.eruda-icon-play:before{content:'\f10b'}.eruda-icon-refresh:before{content:'\f10c'}.eruda-icon-reset:before{content:'\f10d'}.eruda-icon-search:before{content:'\f10e'}.eruda-icon-select:before{content:'\f10f'}.eruda-icon-tool:before{content:'\f110'}.eruda-icon-warn:before{content:'\f111'}</style></head>
+  <body>
+    <div id="loader" class="hidden">
+      <div class="ring"></div>
+    </div>
+
+    <div class="ui-container" style="opacity: 1;">
+    <header class="ui topbar">
+      <a class="brand" href="javascript:void(0)">
+        <div class="brand-mark">A</div>
+        <div class="brand-name">Abyssal<span>·</span>Reef</div>
+      </a>
+      <nav class="nav">
+        <a href="javascript:void(0)" class="active">Exhibit</a>
+        <a href="javascript:void(0)">Species</a>
+        <a href="javascript:void(0)">Conservation</a>
+        <a href="javascript:void(0)">Visit</a>
+      </nav>
+      <button class="cta" type="button">Plan a Visit</button>
+      <button class="hamburger" type="button" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <section class="ui hero">
+      <div class="hero-eyebrow">Living Reef · Hall 04</div>
+      <h1 class="hero-title">Find her in <em>the anemones.</em></h1>
+      <p class="hero-sub">
+        The clownfish you're watching will spend her entire adult life — often
+        twenty years — within reach of one host anemone. A protein-rich mucus
+        coat lets her pass through tentacles that would paralyze any other reef
+        fish. In return, she drives off the butterflyfish that would otherwise
+        graze the brain coral and acropora bare.
+      </p>
+    </section>
+
+    <aside class="ui species">
+      <div class="species-label">Now Observing</div>
+      <div class="species-name">Clownfish</div>
+      <div class="species-latin">Amphiprion ocellaris var.</div>
+      <div class="species-meta">
+        <div>
+          <div class="k">Depth</div>
+          <div class="v">1 – 15 m</div>
+        </div>
+        <div>
+          <div class="k">Status</div>
+          <div class="v">Stable</div>
+        </div>
+        <div>
+          <div class="k">Tank</div>
+          <div class="v">04 / B</div>
+        </div>
+      </div>
+    </aside>
+
+    <footer class="ui bottombar">
+      <div><span class="dot"></span>Live exhibit · 24/7</div>
+      <div class="right">
+        <span>Salinity 34.6 ppt</span>
+        <span>Temp 25.8°C</span>
+        <span>pH 8.2</span>
+      </div>
+    </footer>
+    </div>
+
+    <script type="module" src="bundle.99432b19.js"></script>
+  
+
+<canvas style="display: block; width: 375px; height: 635px; touch-action: none;" data-engine="three.js r183 webgpu" width="375" height="635"></canvas><div style="position: fixed; top: 0px; left: 0px; opacity: 0.9; z-index: 10000; display: none;"><canvas width="270" height="144" style="width: 90px; height: 48px; background-color: transparent !important; position: absolute; display: block; top: 0px; left: 0px;"></canvas><canvas width="270" height="144" style="width: 90px; height: 48px; background-color: transparent !important; position: absolute; display: block; top: 0px; left: 90px;"></canvas><canvas width="270" height="144" style="width: 90px; height: 48px; background-color: transparent !important; position: absolute; display: block; top: 0px; left: 180px;"></canvas><canvas width="270" height="144" style="width: 90px; height: 48px; background-color: transparent !important; position: absolute; display: block; top: 0px; left: 270px;"></canvas></div><div class="lil-gui lil-root lil-allow-touch-styles lil-auto-place autoPlace" style="display: none;"><button class="lil-title" aria-expanded="true">Controls</button><div class="lil-children"><label class="lil-controller lil-boolean"><div class="lil-name" id="lil-gui-name-1">Debug (P)</div><div class="lil-widget"><input type="checkbox" aria-labelledby="lil-gui-name-1"></div></label><label class="lil-controller lil-boolean"><div class="lil-name" id="lil-gui-name-2">Show Colliders</div><div class="lil-widget"><input type="checkbox" aria-labelledby="lil-gui-name-2"></div></label><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-3">FOV</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 25%;"></div></div><input type="number" aria-labelledby="lil-gui-name-3" step="any"></div></div><div class="lil-controller lil-function"><div class="lil-widget"><button><div class="lil-name" id="lil-gui-name-4">Log Camera</div></button></div></div><div class="lil-controller lil-option"><div class="lil-name" id="lil-gui-name-5">Tone Mapping</div><div class="lil-widget"><select aria-labelledby="lil-gui-name-5"><option>None</option><option>Linear</option><option>Reinhard</option><option>Cineon</option><option>ACESFilmic</option><option>AgX</option><option>Neutral</option></select><div class="lil-display">AgX</div></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-6">Exposure</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 33.333333%;"></div></div><input type="number" aria-labelledby="lil-gui-name-6" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-7">Saturation</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 63.333333%;"></div></div><input type="number" aria-labelledby="lil-gui-name-7" step="any"></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Water / Fog</button><div class="lil-children"><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-8">Fog Color</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(6, 36, 59);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-8"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-8"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-9">Fog Near</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 3.333333%;"></div></div><input type="number" aria-labelledby="lil-gui-name-9" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-10">Fog Far</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 33.333333%;"></div></div><input type="number" aria-labelledby="lil-gui-name-10" step="any"></div></div><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-11">BG Top</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(1, 4, 10);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-11"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-11"></div></div><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-12">BG Bottom</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(7, 42, 68);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-12"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-12"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Lights</button><div class="lil-children"><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-13">Sun Color</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(188, 228, 255);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-13"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-13"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-14">Sun Intensity</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 34%;"></div></div><input type="number" aria-labelledby="lil-gui-name-14" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-15">Sun Angle</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 32.877512%;"></div></div><input type="number" aria-labelledby="lil-gui-name-15" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-16">Sun Penumbra</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 80%;"></div></div><input type="number" aria-labelledby="lil-gui-name-16" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-17">Sun X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 50%;"></div></div><input type="number" aria-labelledby="lil-gui-name-17" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-18">Sun Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 46.666667%;"></div></div><input type="number" aria-labelledby="lil-gui-name-18" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-19">Sun Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 62.5%;"></div></div><input type="number" aria-labelledby="lil-gui-name-19" step="any"></div></div><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-20">Ambient</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(12, 54, 84);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-20"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-20"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-21">Ambient Intensity</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 15%;"></div></div><input type="number" aria-labelledby="lil-gui-name-21" step="any"></div></div><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-22">Hemi Sky</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(58, 155, 196);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-22"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-22"></div></div><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-23">Hemi Ground</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(2, 10, 20);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-23"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-23"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-24">Hemi Intensity</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 18.333333%;"></div></div><input type="number" aria-labelledby="lil-gui-name-24" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Caustics</button><div class="lil-children"><label class="lil-controller lil-boolean"><div class="lil-name" id="lil-gui-name-25">Enabled</div><div class="lil-widget"><input type="checkbox" aria-labelledby="lil-gui-name-25"></div></label><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-26">Color</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(142, 200, 238);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-26"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-26"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-27">Strength</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 39.166667%;"></div></div><input type="number" aria-labelledby="lil-gui-name-27" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-28">Frequency</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 17.948718%;"></div></div><input type="number" aria-labelledby="lil-gui-name-28" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-29">Speed</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 36.666667%;"></div></div><input type="number" aria-labelledby="lil-gui-name-29" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-30">Base Brightness</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 37.5%;"></div></div><input type="number" aria-labelledby="lil-gui-name-30" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Sand</button><div class="lil-children"><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-31">Sand A</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(19, 51, 74);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-31"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-31"></div></div><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-32">Sand B</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(4, 18, 30);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-32"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-32"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-33">Noise Scale</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 13.559322%;"></div></div><input type="number" aria-labelledby="lil-gui-name-33" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Anemone Simulation</button><div class="lil-children"><label class="lil-controller lil-boolean"><div class="lil-name" id="lil-gui-name-34">Show Joints</div><div class="lil-widget"><input type="checkbox" aria-labelledby="lil-gui-name-34"></div></label><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-35">Field Size</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 32.142857%;"></div></div><input type="number" aria-labelledby="lil-gui-name-35" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-36">Radius</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 34.482759%;"></div></div><input type="number" aria-labelledby="lil-gui-name-36" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-37">Density</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 10%;"></div></div><input type="number" aria-labelledby="lil-gui-name-37" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-38">Stiffness</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 15%;"></div></div><input type="number" aria-labelledby="lil-gui-name-38" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-39">Damping</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 4%;"></div></div><input type="number" aria-labelledby="lil-gui-name-39" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-40">Drag</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 16.666667%;"></div></div><input type="number" aria-labelledby="lil-gui-name-40" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-41">Buoyancy</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 68%;"></div></div><input type="number" aria-labelledby="lil-gui-name-41" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-42">Gravity</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 6%;"></div></div><input type="number" aria-labelledby="lil-gui-name-42" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-43">Tip Mass</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 58%;"></div></div><input type="number" aria-labelledby="lil-gui-name-43" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-44">Flow Amplitude</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 25%;"></div></div><input type="number" aria-labelledby="lil-gui-name-44" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-45">Flow Frequency</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 10.204082%;"></div></div><input type="number" aria-labelledby="lil-gui-name-45" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-46">Flow Speed</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 15%;"></div></div><input type="number" aria-labelledby="lil-gui-name-46" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-47">Flow Phase Offset</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 11%;"></div></div><input type="number" aria-labelledby="lil-gui-name-47" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-48">Flow Vertical</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 0%;"></div></div><input type="number" aria-labelledby="lil-gui-name-48" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-49">Wave Amplitude</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 0%;"></div></div><input type="number" aria-labelledby="lil-gui-name-49" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-50">Wave Speed</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 10%;"></div></div><input type="number" aria-labelledby="lil-gui-name-50" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-51">Wave Phase/Joint</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 31.847134%;"></div></div><input type="number" aria-labelledby="lil-gui-name-51" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-52">Self-Right</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 16.666667%;"></div></div><input type="number" aria-labelledby="lil-gui-name-52" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-53">Rest Tilt</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 79%;"></div></div><input type="number" aria-labelledby="lil-gui-name-53" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-54">Width</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 31.034483%;"></div></div><input type="number" aria-labelledby="lil-gui-name-54" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-55">Height</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 58.62069%;"></div></div><input type="number" aria-labelledby="lil-gui-name-55" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-56">Push Radius</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 32.20339%;"></div></div><input type="number" aria-labelledby="lil-gui-name-56" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-57">Mouse Push Strength</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 13.333333%;"></div></div><input type="number" aria-labelledby="lil-gui-name-57" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-58">Push Recovery</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 4.081633%;"></div></div><input type="number" aria-labelledby="lil-gui-name-58" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-59">Ray Plane Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 40.25%;"></div></div><input type="number" aria-labelledby="lil-gui-name-59" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Anemone Material</button><div class="lil-children"><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-60">Base Color</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(4, 20, 30);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-60"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-60"></div></div><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-61">Tip Color</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(79, 116, 176);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-61"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-61"></div></div><div class="lil-controller lil-option"><div class="lil-name" id="lil-gui-name-62">Tip Preset</div><div class="lil-widget"><select aria-labelledby="lil-gui-name-62"><option>Cyan</option><option>Neon Pink</option><option>Dark Green</option></select><div class="lil-display">Cyan</div></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-63">Gradient Falloff</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 63.061224%;"></div></div><input type="number" aria-labelledby="lil-gui-name-63" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-64">Gradient Offset</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 34.736842%;"></div></div><input type="number" aria-labelledby="lil-gui-name-64" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-65">Color Variation</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 95%;"></div></div><input type="number" aria-labelledby="lil-gui-name-65" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-66">Roughness</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 80%;"></div></div><input type="number" aria-labelledby="lil-gui-name-66" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-67">Metalness</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 0%;"></div></div><input type="number" aria-labelledby="lil-gui-name-67" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-68">Clearcoat</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 0%;"></div></div><input type="number" aria-labelledby="lil-gui-name-68" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-69">Sheen</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 0%;"></div></div><input type="number" aria-labelledby="lil-gui-name-69" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-70">Iridescence</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 0%;"></div></div><input type="number" aria-labelledby="lil-gui-name-70" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-71">Iridescence IOR</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 22.505626%;"></div></div><input type="number" aria-labelledby="lil-gui-name-71" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-72">Iridescence Min (nm)</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 8.333333%;"></div></div><input type="number" aria-labelledby="lil-gui-name-72" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-73">Iridescence Max (nm)</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 33.333333%;"></div></div><input type="number" aria-labelledby="lil-gui-name-73" step="any"></div></div><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-74">Tip Glow</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(255, 216, 224);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-74"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-74"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-75">Tip Glow Intensity</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 20%;"></div></div><input type="number" aria-labelledby="lil-gui-name-75" step="any"></div></div><label class="lil-controller lil-boolean"><div class="lil-name" id="lil-gui-name-76">Emissive Noise</div><div class="lil-widget"><input type="checkbox" aria-labelledby="lil-gui-name-76"></div></label><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-77">Emissive Noise Amp</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 36%;"></div></div><input type="number" aria-labelledby="lil-gui-name-77" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-78">Emissive Noise Freq</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 87.266667%;"></div></div><input type="number" aria-labelledby="lil-gui-name-78" step="any"></div></div><label class="lil-controller lil-boolean"><div class="lil-name" id="lil-gui-name-79">Speckles</div><div class="lil-widget"><input type="checkbox" aria-labelledby="lil-gui-name-79"></div></label><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-80">Speckle Amp</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 27.4%;"></div></div><input type="number" aria-labelledby="lil-gui-name-80" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-81">Speckle Freq</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 58.02%;"></div></div><input type="number" aria-labelledby="lil-gui-name-81" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-82">Speckle Threshold</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 64.4%;"></div></div><input type="number" aria-labelledby="lil-gui-name-82" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-83">Tip Glow Start</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 75%;"></div></div><input type="number" aria-labelledby="lil-gui-name-83" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-84">Tip Glow Falloff</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 15.822785%;"></div></div><input type="number" aria-labelledby="lil-gui-name-84" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Fish</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-85">Scale</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 30.612245%;"></div></div><input type="number" aria-labelledby="lil-gui-name-85" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-86">Swim Speed</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 54%;"></div></div><input type="number" aria-labelledby="lil-gui-name-86" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-87">Path Offset</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 42.45788%;"></div></div><input type="number" aria-labelledby="lil-gui-name-87" step="any"></div></div><label class="lil-controller lil-boolean"><div class="lil-name" id="lil-gui-name-88">Show Path</div><div class="lil-widget"><input type="checkbox" aria-labelledby="lil-gui-name-88"></div></label><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-89">Collider Radius</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 10.816327%;"></div></div><input type="number" aria-labelledby="lil-gui-name-89" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-90">Collider Length</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 13.265306%;"></div></div><input type="number" aria-labelledby="lil-gui-name-90" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-91">Wiggle Amp</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 1.5%;"></div></div><input type="number" aria-labelledby="lil-gui-name-91" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-92">Wiggle Freq</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 21.4%;"></div></div><input type="number" aria-labelledby="lil-gui-name-92" step="any"></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Path Points</button><div class="lil-children"><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Point 1</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-93">X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 54.15%;"></div></div><input type="number" aria-labelledby="lil-gui-name-93" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-94">Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 29%;"></div></div><input type="number" aria-labelledby="lil-gui-name-94" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-95">Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 38.15%;"></div></div><input type="number" aria-labelledby="lil-gui-name-95" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Point 2</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-96">X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 45.4%;"></div></div><input type="number" aria-labelledby="lil-gui-name-96" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-97">Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 29%;"></div></div><input type="number" aria-labelledby="lil-gui-name-97" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-98">Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 50%;"></div></div><input type="number" aria-labelledby="lil-gui-name-98" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Point 3</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-99">X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 57.05%;"></div></div><input type="number" aria-labelledby="lil-gui-name-99" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-100">Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 29%;"></div></div><input type="number" aria-labelledby="lil-gui-name-100" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-101">Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 58.5%;"></div></div><input type="number" aria-labelledby="lil-gui-name-101" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Point 4</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-102">X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 42.5%;"></div></div><input type="number" aria-labelledby="lil-gui-name-102" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-103">Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 29%;"></div></div><input type="number" aria-labelledby="lil-gui-name-103" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-104">Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 62.9%;"></div></div><input type="number" aria-labelledby="lil-gui-name-104" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Point 5</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-105">X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 35.25%;"></div></div><input type="number" aria-labelledby="lil-gui-name-105" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-106">Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 29%;"></div></div><input type="number" aria-labelledby="lil-gui-name-106" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-107">Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 52.7%;"></div></div><input type="number" aria-labelledby="lil-gui-name-107" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Point 6</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-108">X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 41.05%;"></div></div><input type="number" aria-labelledby="lil-gui-name-108" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-109">Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 29%;"></div></div><input type="number" aria-labelledby="lil-gui-name-109" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-110">Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 38.25%;"></div></div><input type="number" aria-labelledby="lil-gui-name-110" step="any"></div></div></div></div></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Corals</button><div class="lil-children"><label class="lil-controller lil-boolean"><div class="lil-name" id="lil-gui-name-111">Show Corals</div><div class="lil-widget"><input type="checkbox" aria-labelledby="lil-gui-name-111"></div></label><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Red Coral</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-112">X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 64%;"></div></div><input type="number" aria-labelledby="lil-gui-name-112" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-113">Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 60.1%;"></div></div><input type="number" aria-labelledby="lil-gui-name-113" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-114">Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 41.75%;"></div></div><input type="number" aria-labelledby="lil-gui-name-114" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-115">Scale</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 17.878788%;"></div></div><input type="number" aria-labelledby="lil-gui-name-115" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-116">Collider Radius</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 7.676768%;"></div></div><input type="number" aria-labelledby="lil-gui-name-116" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Vibrant Acropora</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-117">X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 36.5%;"></div></div><input type="number" aria-labelledby="lil-gui-name-117" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-118">Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 53.5%;"></div></div><input type="number" aria-labelledby="lil-gui-name-118" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-119">Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 61.4%;"></div></div><input type="number" aria-labelledby="lil-gui-name-119" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-120">Scale</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 23.333333%;"></div></div><input type="number" aria-labelledby="lil-gui-name-120" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-121">Collider Radius</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 9.090909%;"></div></div><input type="number" aria-labelledby="lil-gui-name-121" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Yellow/Orange Coral</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-122">X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 38.25%;"></div></div><input type="number" aria-labelledby="lil-gui-name-122" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-123">Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 50%;"></div></div><input type="number" aria-labelledby="lil-gui-name-123" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-124">Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 34.15%;"></div></div><input type="number" aria-labelledby="lil-gui-name-124" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-125">Scale</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 51.515152%;"></div></div><input type="number" aria-labelledby="lil-gui-name-125" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-126">Collider Radius</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 7.676768%;"></div></div><input type="number" aria-labelledby="lil-gui-name-126" step="any"></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Brain Coral</button><div class="lil-children"><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-127">X</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 66.75%;"></div></div><input type="number" aria-labelledby="lil-gui-name-127" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-128">Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 52%;"></div></div><input type="number" aria-labelledby="lil-gui-name-128" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-129">Z</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 50.45%;"></div></div><input type="number" aria-labelledby="lil-gui-name-129" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-130">Scale</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 23.333333%;"></div></div><input type="number" aria-labelledby="lil-gui-name-130" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-131">Collider Radius</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 11.111111%;"></div></div><input type="number" aria-labelledby="lil-gui-name-131" step="any"></div></div></div></div></div></div><div class="lil-gui lil-closed"><button class="lil-title" aria-expanded="false">Plankton</button><div class="lil-children"><label class="lil-controller lil-boolean"><div class="lil-name" id="lil-gui-name-132">Show Plankton</div><div class="lil-widget"><input type="checkbox" aria-labelledby="lil-gui-name-132"></div></label><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-133">Size Min</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 6.666667%;"></div></div><input type="number" aria-labelledby="lil-gui-name-133" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-134">Size Max</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 10%;"></div></div><input type="number" aria-labelledby="lil-gui-name-134" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-135">Speed</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 15%;"></div></div><input type="number" aria-labelledby="lil-gui-name-135" step="any"></div></div><div class="lil-controller lil-color"><div class="lil-name" id="lil-gui-name-136">Color</div><div class="lil-widget"><div class="lil-display" style="background-color: rgb(207, 233, 255);"><input type="color" tabindex="-1" aria-labelledby="lil-gui-name-136"></div><input type="text" spellcheck="false" aria-labelledby="lil-gui-name-136"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-137">Opacity</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 40%;"></div></div><input type="number" aria-labelledby="lil-gui-name-137" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-138">Stretch Min</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 0%;"></div></div><input type="number" aria-labelledby="lil-gui-name-138" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-139">Stretch Max</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 66.666667%;"></div></div><input type="number" aria-labelledby="lil-gui-name-139" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-140">Granule</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 50%;"></div></div><input type="number" aria-labelledby="lil-gui-name-140" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-141">Edge Softness</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 25%;"></div></div><input type="number" aria-labelledby="lil-gui-name-141" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-142">Lighting (+Y)</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 100%;"></div></div><input type="number" aria-labelledby="lil-gui-name-142" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-143">Volume XZ</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 50%;"></div></div><input type="number" aria-labelledby="lil-gui-name-143" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-144">Volume Y</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 39.285714%;"></div></div><input type="number" aria-labelledby="lil-gui-name-144" step="any"></div></div><div class="lil-controller lil-number lil-has-slider"><div class="lil-name" id="lil-gui-name-145">Volume Y Base</div><div class="lil-widget"><div class="lil-slider"><div class="lil-fill" style="width: 31.428571%;"></div></div><input type="number" aria-labelledby="lil-gui-name-145" step="any"></div></div></div></div></div></div></body><div class="__chii-hide__" style="display: none; position: absolute; pointer-events: none;"><div style="position: absolute; box-sizing: border-box; z-index: 100000;"></div><div style="position: absolute; box-sizing: border-box; z-index: 100000;"></div><div style="position: absolute; box-sizing: border-box; z-index: 100000;"></div><div style="position: absolute; box-sizing: border-box; z-index: 100000;"></div><div style="position: absolute; box-sizing: border-box; z-index: 100000; height: 25px; line-height: 25px; background: rgb(255, 255, 255); color: rgb(34, 34, 34); font-size: 12px; padding: 0px 5px; white-space: nowrap; overflow-x: hidden; box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 2px 0px, rgba(0, 0, 0, 0.08) 0px 1px 4px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px;"></div></div><div style="all: initial;"></div></html>
